@@ -2099,10 +2099,89 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    source: String
+  },
+  name: "Globus",
   data: function data() {
     return {
-      name: 'Vue'
+      text: 'This part of application is rendered in Vue.',
+      drawer: false,
+      links: [{
+        title: 'Login',
+        icon: 'mdi-lock',
+        url: '/login'
+      }, {
+        title: 'Register',
+        icon: 'how_to_reg',
+        url: '/register'
+      }, {
+        title: 'Orders',
+        icon: 'shop',
+        url: '/orders'
+      }, {
+        title: 'New bulletin',
+        icon: 'note_add',
+        url: '/create'
+      }, {
+        title: 'My bulletins',
+        icon: 'list',
+        url: '/list'
+      }]
     };
   }
 });
@@ -2148,37 +2227,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 /* harmony import */ var _components_site_HomePage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/site/HomePage.vue */ "./resources/js/components/site/HomePage.vue");
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
 
 
-
- //window.Vue.use(VueRouter);
 
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
-
-/*const routes = [
-    {
-        path: '/',
-        components: {
-            HomePage: HomePage
-        }
-    }
-   
-    ];*/
-
-console.log('app is running'); //const router = new VueRouter({ routes });
-//const app = new Vue({ router }).$mount('#app');
-
-/*new Vue({
-	el: 'app',
-	render: h => ()
-	data: {
-		name: 'Vue'	
-	}
-});*/
 
 new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   router: _routes__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2240,7 +2296,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].use((vuetify__WEBPACK_IMPORTED_MODULE_2___default()));
-var opts = {};
+var opts = {
+  icons: {
+    iconfont: 'md'
+  }
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new (vuetify__WEBPACK_IMPORTED_MODULE_2___default())(opts));
 
 /***/ }),
@@ -20312,15 +20372,127 @@ var render = function() {
   return _c(
     "v-app",
     [
-      _c("v-navigation-drawer", { attrs: { app: "" } }),
+       false ? 0 : _vm._e(),
       _vm._v(" "),
       _c(
-        "v-app-bar",
-        { attrs: { app: "" } },
+        "v-card",
+        { staticClass: "overflow-hidden" },
         [
-          _c("router-link", { attrs: { to: { name: "home" } } }, [
-            _vm._v("Home")
-          ])
+          _c(
+            "v-app-bar",
+            {
+              attrs: {
+                absolute: "",
+                color: "#6A76AB",
+                dark: "",
+                dense: "",
+                src: "https://picsum.photos/1920/1080?random",
+                "fade-img-on-scroll": "",
+                "scroll-target": "#scrolling-techniques-3"
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "img",
+                  fn: function(ref) {
+                    var props = ref.props
+                    return [
+                      _c(
+                        "v-img",
+                        _vm._b(
+                          {
+                            attrs: {
+                              gradient:
+                                "to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+                            }
+                          },
+                          "v-img",
+                          props,
+                          false
+                        )
+                      )
+                    ]
+                  }
+                },
+                {
+                  key: "extension",
+                  fn: function() {
+                    return [
+                      _c(
+                        "v-tabs",
+                        { attrs: { "align-with-title": "" } },
+                        _vm._l(_vm.links, function(link) {
+                          return _c(
+                            "v-tab",
+                            {
+                              key: link.title,
+                              attrs: { to: link.url, exact: "" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(link.title) +
+                                  "\n          "
+                              )
+                            ]
+                          )
+                        }),
+                        1
+                      )
+                    ]
+                  },
+                  proxy: true
+                }
+              ])
+            },
+            [
+              _vm._v(" "),
+              _c("v-app-bar-title", [_vm._v("GLOBUS")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { icon: "" } },
+                [_c("v-icon", [_vm._v("mdi-magnify")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { icon: "" } },
+                [_c("v-icon", [_vm._v("mdi-heart")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { icon: "" } },
+                [_c("v-icon", [_vm._v("mdi-dots-vertical")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-sheet",
+            {
+              staticClass: "overflow-y-auto",
+              attrs: { id: "scrolling-techniques-3", "max-height": "600" }
+            },
+            [
+              _c("v-container", {
+                staticStyle: { height: "1000px" },
+                attrs: { id: "Test" }
+              })
+            ],
+            1
+          )
         ],
         1
       ),
@@ -20331,7 +20503,9 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { app: "" } })
+      _c("v-footer", { attrs: { app: "" } }, [
+        _c("p", [_vm._v("Some footer text")])
+      ])
     ],
     1
   )
