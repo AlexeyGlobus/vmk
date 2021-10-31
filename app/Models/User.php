@@ -8,6 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use League\CommonMark\Node\Node;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * User model
+ *
+ * @property integer $id
+ * @property string $username
+ * @property string $password
+ * @property string $email
+ * @property string $email_verified_at
+ * @property string $remember_token
+ * @property integer $role
+ * @property string $created_at
+ * @property string $updated_at
+ *
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
