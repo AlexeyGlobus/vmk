@@ -15,12 +15,8 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->smallInteger('role')->default(User::ROLE_OTHER);
+            $table->renameColumn('name', 'username');
         });
-        if ($user = User::find(1)) {
-            $user->role = User::ROLE_ADMIN;
-            $user->save();
-        }
     }
 
     /**
@@ -31,7 +27,7 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+            $table->renameColumn('username', 'name');
         });
     }
 }

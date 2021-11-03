@@ -13,6 +13,8 @@ let NotFound = require('./pages/NotFound.vue');*/
 //const routerPrefix = document.querySelector('html').lang == 'ru-RU' ? '/ru' : '/en';
 
 import HomePage from './components/site/HomePage.vue';
+import Login from './components/site/Login.vue';
+
 /*import Bulletin from './components/Bulletins/Bulletin.vue'
 import Create from './components/Bulletins/Create.vue'
 import List from './components/Bulletins/List.vue'
@@ -27,13 +29,13 @@ export default new VueRouter({
             name: 'home',
             component: HomePage
         },
-/*        {
+        {
             path: '/login',
             name: 'login',
             component: Login
         },
-        {
-            path: '/register',
+/*        {
+           path: '/register',
             name: 'register',
             component: Register
         },

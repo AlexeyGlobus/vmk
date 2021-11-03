@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Exception;
+/*use Tymon\JWTAuth\Exceptions\JWTException;*/
 
 class AuthController extends Controller
 {
@@ -40,7 +42,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+/*                $user = User::find(1);
+        return response()->json([
+            'status' => 'success',
+            'data' => $user
+        ]);*/
+        $credentials = $request->only('username', 'password');
+/*        dump($credentials);die();*/
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
         }
@@ -79,12 +87,23 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        if ($token = $this->guard()->refresh()) {
+        $token = $this->guard()->refresh();
+        try {
+            if ($token = $this->guard()->refresh()) {
+                return response()
+                    ->json(['status' => 'successs'], 200)
+                    ->header('Authorization', $token);
+            }
+            return response()->json(['error' => 'refresh_token_error'], 401);
+        } catch (Exception /*JWTException*/ $e) {
+            return response()->json(['error' => 'refresh_token_error'], 401);
+        }
+/*        if ($token = $this->guard()->refresh()) {
             return response()
                 ->json(['status' => 'successs'], 200)
                 ->header('Authorization', $token);
         }
-        return response()->json(['error' => 'refresh_token_error'], 401);
+        return response()->json(['error' => 'refresh_token_error'], 401);*/
     }
 
     /**

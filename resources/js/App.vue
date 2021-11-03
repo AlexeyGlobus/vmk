@@ -6,7 +6,6 @@
     <!-- -->
   </v-navigation-drawer>
 
-    <v-card class="overflow-hidden">
     <v-app-bar
       absolute
       color="#6A76AB"
@@ -15,7 +14,6 @@
       dense
       src="https://picsum.photos/1920/1080?random"
       fade-img-on-scroll
-      scroll-target="#scrolling-techniques-3"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -56,23 +54,12 @@
         </v-tabs>
       </template>
     </v-app-bar>
-    <v-sheet
-      id="scrolling-techniques-3"
-      class="overflow-y-auto"
-      max-height="600"
-    >
-      <v-container style="height: 1000px;"></v-container>
-    </v-sheet>
-  </v-card>
-
-
-
 
   <!-- Sizes your content based upon application components -->
   <v-main>
 
     <!-- Provides the application the proper gutter -->
-    <v-container fluid>
+    <v-container fluid id="routerContent" class="fill-height">
       <!-- If using vue-router -->
       <router-view></router-view>
     </v-container>
@@ -96,6 +83,7 @@
                 text: 'This part of application is rendered in Vue.',
                 drawer: false,
                 links: [
+                    {title: 'Home', icon: 'mdi-home', url: '/'},
                     {title: 'Login', icon: 'mdi-lock', url: '/login'},
                     {title: 'Register', icon: 'how_to_reg', url: '/register'},
                     {title: 'Orders', icon: 'shop', url: '/orders'},
@@ -103,6 +91,9 @@
                     {title: 'My bulletins', icon: 'list', url: '/list'}
                 ],
             }
+        },
+        created() {
+          console.log(this.$auth.user)
         }
     }
 </script>
