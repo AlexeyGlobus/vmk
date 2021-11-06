@@ -4,6 +4,7 @@ import './bootstrap';
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 
 import VueAuth                  from '@websanova/vue-auth/dist/v2/vue-auth.esm.js';
 import driverAuthBearer      from '@websanova/vue-auth/dist/drivers/auth/bearer.esm.js';
@@ -21,7 +22,20 @@ Vue.use(VueRouter)
 // Set Vue authentication
 Vue.use(VueAxios, axios)
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
-//axios.defaults.baseURL = 'http://192.168.10.10/api'
+
+Vue.use(VueI18n);
+
+const messagesEn = require('../lang/en.json');
+const messagesRu = require('../lang/ru.json');
+const currentLocale = document.querySelector('html').getAttribute('lang');
+
+const i18n = new VueI18n({
+  locale: currentLocale, // set locale
+  messages: {
+    en: messagesEn,
+    ru: messagesRu
+  }
+});
 
 const authConfig = {
     plugins: {
@@ -53,5 +67,6 @@ import App from './App.vue';
 new Vue({
     router,
     vuetify,
+    i18n,
     render: h => h(App)
 }).$mount('#app');

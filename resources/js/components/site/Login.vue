@@ -73,8 +73,6 @@
       }
     },
     mounted() {
-      //
-      console.log(this.$auth.redirect())
     },
     methods: {
       login() {

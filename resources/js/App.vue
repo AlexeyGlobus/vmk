@@ -51,6 +51,13 @@
             <!-- <v-icon>{{ link.icon }}</v-icon> -->
             {{ link.title }}
           </v-tab>
+          <v-tab
+            v-if="$auth.check()"
+            :key=""
+            @click.prevent="$auth.logout()"
+            exact>
+            LOGOUT
+          </v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -67,7 +74,7 @@
 
   <v-footer app>
     <!-- -->
-    <p>Some footer text</p>
+    <p> {{ $t("Login") }}</p>
   </v-footer>
 </v-app>
 </template>
@@ -82,15 +89,19 @@
             return {
                 text: 'This part of application is rendered in Vue.',
                 drawer: false,
-                links: [
-                    {title: 'Home', icon: 'mdi-home', url: '/'},
-                    {title: 'Login', icon: 'mdi-lock', url: '/login'},
-                    {title: 'Register', icon: 'how_to_reg', url: '/register'},
-                    {title: 'Orders', icon: 'shop', url: '/orders'},
-                    {title: 'New bulletin', icon: 'note_add', url: '/create'},
-                    {title: 'My bulletins', icon: 'list', url: '/list'}
-                ],
             }
+        },
+        computed: {
+          links() {
+            let links = [];
+            if (this.$auth.check()) {
+              links.push({title: 'Home', icon: 'mdi-home', url: '/'});
+              links.push({title: 'Orders', icon: 'shop', url: '/orders'});
+            } else {
+              links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  
+            }
+            return links;
+          },
         },
         created() {
         }
