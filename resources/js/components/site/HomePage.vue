@@ -8,6 +8,10 @@
             return {
                 name: 'Vue'
             }
+        },
+        mounted() {
+            console.log(this.$auth.check())
+            console.log(this.$auth.user())
         }
     }
 </script>

@@ -3328,6 +3328,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     source: String
@@ -3336,37 +3343,36 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       text: 'This part of application is rendered in Vue.',
-      drawer: false,
-      links: [{
-        title: 'Home',
-        icon: 'mdi-home',
-        url: '/'
-      }, {
-        title: 'Login',
-        icon: 'mdi-lock',
-        url: '/login'
-      }, {
-        title: 'Register',
-        icon: 'how_to_reg',
-        url: '/register'
-      }, {
-        title: 'Orders',
-        icon: 'shop',
-        url: '/orders'
-      }, {
-        title: 'New bulletin',
-        icon: 'note_add',
-        url: '/create'
-      }, {
-        title: 'My bulletins',
-        icon: 'list',
-        url: '/list'
-      }]
+      drawer: false
     };
   },
-  created: function created() {
-    console.log(this.$auth.user);
-  }
+  computed: {
+    links: function links() {
+      var links = [];
+
+      if (this.$auth.check()) {
+        links.push({
+          title: 'Home',
+          icon: 'mdi-home',
+          url: '/'
+        });
+        links.push({
+          title: 'Orders',
+          icon: 'shop',
+          url: '/orders'
+        });
+      } else {
+        links.push({
+          title: 'Login',
+          icon: 'mdi-lock',
+          url: '/login'
+        });
+      }
+
+      return links;
+    }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -3391,6 +3397,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: 'Vue'
     };
+  },
+  mounted: function mounted() {
+    console.log(this.$auth.check());
+    console.log(this.$auth.user());
   }
 });
 
@@ -3459,20 +3469,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       name: 'Login page',
       username: null,
       password: null,
-      remember_token: false,
+      remember_me: false,
       has_error: false
     };
   },
-  mounted: function mounted() {
-    //
-    console.log(this.$auth.redirect());
-  },
+  mounted: function mounted() {},
   methods: {
     login: function login() {
       // get the redirect object
@@ -3493,7 +3511,7 @@ __webpack_require__.r(__webpack_exports__);
         error: function error() {
           app.has_error = true;
         },
-        rememberMe: true,
+        rememberMe: app.remember_me,
         fetchUser: true
       });
     },
@@ -3576,7 +3594,7 @@ var authConfig = {
     loginData: {
       url: 'auth/login',
       method: 'POST',
-      redirect: '',
+      redirect: '/',
       fetchUser: true
     },
     logoutData: {
@@ -23116,28 +23134,46 @@ var render = function() {
                   _c(
                     "v-tabs",
                     { attrs: { "align-with-title": "" } },
-                    _vm._l(_vm.links, function(link) {
-                      return _c(
-                        "v-tab",
-                        {
-                          key: link.title,
-                          attrs: { to: link.url, exact: "" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
+                    [
+                      _vm._l(_vm.links, function(link) {
+                        return _c(
+                          "v-tab",
+                          {
+                            key: link.title,
+                            attrs: { to: link.url, exact: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                              }
                             }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n            " +
-                              _vm._s(link.title) +
-                              "\n          "
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(link.title) +
+                                "\n          "
+                            )
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.$auth.check()
+                        ? _c(
+                            "v-tab",
+                            {
+                              attrs: { exact: "" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.$auth.logout()
+                                }
+                              }
+                            },
+                            [_vm._v("\n            LOGOUT\n          ")]
                           )
-                        ]
-                      )
-                    }),
-                    1
+                        : _vm._e()
+                    ],
+                    2
                   )
                 ]
               },
@@ -23221,7 +23257,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("GLOBUS-1 " + _vm._s(_vm.name))])
+  return _vm.$auth.check()
+    ? _c("h1", [_vm._v("GLOBUS-1 " + _vm._s(_vm.name))])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23267,6 +23305,28 @@ var render = function() {
               }
             },
             [
+              _vm.has_error
+                ? _c(
+                    "v-alert",
+                    { attrs: { prominent: "", type: "error" } },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { align: "center" } },
+                        [
+                          _c("v-col", { staticClass: "grow" }, [
+                            _vm._v(
+                              "\n                  Auth error\n                "
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "v-form",
                 { ref: "form" },
@@ -23300,11 +23360,11 @@ var render = function() {
                   _c("v-checkbox", {
                     attrs: { label: "Remember me", required: "" },
                     model: {
-                      value: _vm.remember_token,
+                      value: _vm.remember_me,
                       callback: function($$v) {
-                        _vm.remember_token = $$v
+                        _vm.remember_me = $$v
                       },
-                      expression: "remember_token"
+                      expression: "remember_me"
                     }
                   }),
                   _vm._v(" "),
@@ -23320,11 +23380,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n          submit\n        ")]
+                    [_vm._v("\n                  submit\n                ")]
                   ),
                   _vm._v(" "),
                   _c("v-btn", { on: { click: _vm.clear } }, [
-                    _vm._v("\n          clear\n        ")
+                    _vm._v("\n                  clear\n                ")
                   ])
                 ],
                 1

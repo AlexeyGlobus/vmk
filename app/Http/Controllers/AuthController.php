@@ -42,13 +42,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-/*                $user = User::find(1);
-        return response()->json([
-            'status' => 'success',
-            'data' => $user
-        ]);*/
         $credentials = $request->only('username', 'password');
-/*        dump($credentials);die();*/
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
         }
@@ -87,7 +81,6 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        $token = $this->guard()->refresh();
         try {
             if ($token = $this->guard()->refresh()) {
                 return response()
@@ -98,12 +91,6 @@ class AuthController extends Controller
         } catch (Exception /*JWTException*/ $e) {
             return response()->json(['error' => 'refresh_token_error'], 401);
         }
-/*        if ($token = $this->guard()->refresh()) {
-            return response()
-                ->json(['status' => 'successs'], 200)
-                ->header('Authorization', $token);
-        }
-        return response()->json(['error' => 'refresh_token_error'], 401);*/
     }
 
     /**

@@ -1,51 +1,62 @@
 <template>
-            <v-row
-                align="center"
-                justify="center"
-        >
-            <v-col
-                    cols="12"
-                    sm="8"
-                    md="6"
-            >
-    <v-card elevation="2" 
-        class="pa-4" autocomplete="off" 
-        id="login-form" 
-        @submit.prevent="login"
+    <v-row
+        align="center"
+        justify="center"
     >
-      <v-form ref="form">
-        <v-text-field
-          v-model="username"
-          :counter="10"
-          label="Login"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          label="Password"
-          type="password"
-          required
-        ></v-text-field>
-        <v-checkbox
-          v-model="remember_token"
-          label="Remember me"
-          required
-        ></v-checkbox>
-
-        <v-btn
-          class="mr-4"
-          type="submit"
-          form="login-form"
-          @click.prevent="login"
+        <v-col
+            cols="12"
+            sm="8"
+            md="6"
         >
-          submit
-        </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
-      </v-form>
-  </v-card>
-</v-col>
+            <v-card elevation="2" 
+                class="pa-4" autocomplete="off" 
+                id="login-form" 
+                @submit.prevent="login"
+            >
+            <v-alert
+              prominent
+              type="error"
+              v-if="has_error"
+            >
+              <v-row align="center">
+                <v-col class="grow">
+                  Auth error
+                </v-col>
+              </v-row>
+            </v-alert>
+              <v-form ref="form">
+                <v-text-field
+                  v-model="username"
+                  :counter="10"
+                  label="Login"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  label="Password"
+                  type="password"
+                  required
+                ></v-text-field>
+                <v-checkbox
+                  v-model="remember_me"
+                  label="Remember me"
+                  required
+                ></v-checkbox>
+
+                <v-btn
+                  class="mr-4"
+                  type="submit"
+                  form="login-form"
+                  @click.prevent="login"
+                >
+                  submit
+                </v-btn>
+                <v-btn @click="clear">
+                  clear
+                </v-btn>
+              </v-form>
+            </v-card>
+    </v-col>
 </v-row>
 </template>
 
@@ -57,7 +68,7 @@
         name: 'Login page',  
         username: null,
         password: null,
-        remember_token: false,
+        remember_me: false,
         has_error: false
       }
     },
@@ -83,7 +94,7 @@
           error: function() {
             app.has_error = true
           },
-          rememberMe: true,
+          rememberMe: app.remember_me,
           fetchUser: true
         })
       },
