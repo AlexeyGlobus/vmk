@@ -54,7 +54,7 @@
           <v-tab
             v-if="$auth.check()"
             :key=""
-            @click.prevent="$auth.logout()"
+            @click.prevent="$auth.logout({makeRequest: true,redirect: {name: 'login'}})"
             exact>
             LOGOUT
           </v-tab>

@@ -28,18 +28,20 @@
                 <v-text-field
                   v-model="username"
                   :counter="10"
-                  label="Login"
+                  :label="$t('Username')"
                   required
                 ></v-text-field>
                 <v-text-field
                   v-model="password"
-                  label="Password"
-                  type="password"
+                  :label="$t('Password')"
                   required
+                  :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+                  @click:append="() => (showPassword = !showPassword)"
+                  :type="showPassword ? 'text' : 'password'"
                 ></v-text-field>
                 <v-checkbox
                   v-model="remember_me"
-                  label="Remember me"
+                  :label="$t('Remember Me')"
                   required
                 ></v-checkbox>
 
@@ -49,10 +51,10 @@
                   form="login-form"
                   @click.prevent="login"
                 >
-                  submit
+                  {{ $t("Login") }}
                 </v-btn>
                 <v-btn @click="clear">
-                  clear
+                  {{ $t("Clear") }}
                 </v-btn>
               </v-form>
             </v-card>
@@ -65,7 +67,8 @@
   export default {
     data() {
       return {
-        name: 'Login page',  
+        name: 'Login page',
+        showPassword: false, 
         username: null,
         password: null,
         remember_me: false,

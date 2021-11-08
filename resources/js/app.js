@@ -6,7 +6,7 @@ import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 
-import VueAuth                  from '@websanova/vue-auth/dist/v2/vue-auth.esm.js';
+import VueAuth               from '@websanova/vue-auth/dist/v2/vue-auth.esm.js';
 import driverAuthBearer      from '@websanova/vue-auth/dist/drivers/auth/bearer.esm.js';
 import driverHttpAxios       from '@websanova/vue-auth/dist/drivers/http/axios.1.x.esm.js';
 import driverRouterVueRouter from '@websanova/vue-auth/dist/drivers/router/vue-router.2.x.esm.js';
@@ -30,7 +30,7 @@ const messagesRu = require('../lang/ru.json');
 const currentLocale = document.querySelector('html').getAttribute('lang');
 
 const i18n = new VueI18n({
-  locale: currentLocale, // set locale
+  locale: currentLocale,
   messages: {
     en: messagesEn,
     ru: messagesRu
@@ -52,6 +52,7 @@ const authConfig = {
       rolesVar: 'role',
       rolesKey: 'type',
       notFoundRedirect: {name: 'user-account'},
+      authRedirect: {path: '/login'},
       registerData: {url: 'auth/register', method: 'POST', redirect: '/login'},
       loginData: {url: 'auth/login', method: 'POST', redirect: '/', fetchUser: true},
       logoutData: {url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: true},

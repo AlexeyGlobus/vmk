@@ -3480,10 +3480,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       name: 'Login page',
+      showPassword: false,
       username: null,
       password: null,
       remember_me: false,
@@ -3578,7 +3581,6 @@ var messagesRu = __webpack_require__(/*! ../lang/ru.json */ "./resources/lang/ru
 var currentLocale = document.querySelector('html').getAttribute('lang');
 var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_12__["default"]({
   locale: currentLocale,
-  // set locale
   messages: {
     en: messagesEn,
     ru: messagesRu
@@ -3601,6 +3603,9 @@ var authConfig = {
     rolesKey: 'type',
     notFoundRedirect: {
       name: 'user-account'
+    },
+    authRedirect: {
+      path: '/login'
     },
     registerData: {
       url: 'auth/register',
@@ -3743,7 +3748,10 @@ import Orders from './components/User/Orders.vue'*/
   routes: [{
     path: '/',
     name: 'home',
-    component: _components_site_HomePage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    component: _components_site_HomePage_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    meta: {
+      auth: true
+    }
   }, {
     path: '/login',
     name: 'login',
@@ -25459,7 +25467,10 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.$auth.logout()
+                                  return _vm.$auth.logout({
+                                    makeRequest: true,
+                                    redirect: { name: "login" }
+                                  })
                                 }
                               }
                             },
@@ -25626,7 +25637,11 @@ var render = function() {
                 { ref: "form" },
                 [
                   _c("v-text-field", {
-                    attrs: { counter: 10, label: "Login", required: "" },
+                    attrs: {
+                      counter: 10,
+                      label: _vm.$t("Username"),
+                      required: ""
+                    },
                     model: {
                       value: _vm.username,
                       callback: function($$v) {
@@ -25638,9 +25653,17 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-text-field", {
                     attrs: {
-                      label: "Password",
-                      type: "password",
-                      required: ""
+                      label: _vm.$t("Password"),
+                      required: "",
+                      "append-icon": _vm.showPassword
+                        ? "visibility"
+                        : "visibility_off",
+                      type: _vm.showPassword ? "text" : "password"
+                    },
+                    on: {
+                      "click:append": function() {
+                        return (_vm.showPassword = !_vm.showPassword)
+                      }
                     },
                     model: {
                       value: _vm.password,
@@ -25652,7 +25675,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-checkbox", {
-                    attrs: { label: "Remember me", required: "" },
+                    attrs: { label: _vm.$t("Remember Me"), required: "" },
                     model: {
                       value: _vm.remember_me,
                       callback: function($$v) {
@@ -25674,11 +25697,21 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n                  submit\n                ")]
+                    [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.$t("Login")) +
+                          "\n                "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("v-btn", { on: { click: _vm.clear } }, [
-                    _vm._v("\n                  clear\n                ")
+                    _vm._v(
+                      "\n                  " +
+                        _vm._s(_vm.$t("Clear")) +
+                        "\n                "
+                    )
                   ])
                 ],
                 1
@@ -86581,7 +86614,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inB
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Login":"Login","Logout":"Logout"}');
+module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout","Password":"Password","Remember Me":"Remember Me","Username":"User name"}');
 
 /***/ }),
 
@@ -86592,7 +86625,7 @@ module.exports = JSON.parse('{"Login":"Login","Logout":"Logout"}');
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Login":"Вход","Logout":"Выход"}');
+module.exports = JSON.parse('{"Clear":"Очистить","Login":"Вход","Logout":"Выход","Password":"Пароль","Remember Me":"Запомнить меня","Username":"Логин"}');
 
 /***/ })
 
