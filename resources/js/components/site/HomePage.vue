@@ -10,8 +10,8 @@
             }
         },
         mounted() {
-            console.log(this.$auth.check())
-            console.log(this.$auth.user())
+            //console.log(this.$auth.check())
+            //console.log(this.$auth.user())
         }
     }
 </script>

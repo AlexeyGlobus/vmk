@@ -25403,7 +25403,7 @@ var render = function() {
             color: "#6A76AB",
             dark: "",
             dense: "",
-            src: "https://picsum.photos/1920/1080?random",
+            src: "/img/navbar.JPG",
             "fade-img-on-scroll": ""
           },
           scopedSlots: _vm._u([
