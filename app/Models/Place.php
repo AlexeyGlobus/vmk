@@ -12,13 +12,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $coords
  * @property integer $type
- * @property string $ownersName
- * @property string $ownersSurname
- * @property string $ownersPatronymic
- * @property string $ownersEmail
- * @property string $ownersPhone
+ * @property string $owners_name
+ * @property string $owners_surname
+ * @property string $owners_patronymic
+ * @property string $owners_email
+ * @property string $owners_phone
  */
 class Place extends Model
 {
+    const TYPE_PRIVATE = 1;
+    const TYPE_BUSINESS = 2;
+    const TYPE_OTHER = 3;
+
     use HasFactory;
 }

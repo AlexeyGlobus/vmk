@@ -17,7 +17,7 @@ class CreatePlacesTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32)->unique();
-            $table->point('coords')->nullable();
+            $table->point('')->nullable();
             $table->smallInteger('type')->default(1);
             $table->string('ownersName')->nullable();
             $table->string('ownersSurname')->nullable();

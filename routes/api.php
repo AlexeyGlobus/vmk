@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+//use PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::prefix('auth')->group(function () {
         Route::post('logout', 'AuthController@logout');
     });
 });
+
+Route::apiResource('places',PlaceController::class);
 
 Route::group(['middleware' => 'auth:api'], function(){
     // Users
