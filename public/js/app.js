@@ -3334,7 +3334,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     source: String
@@ -3388,6 +3387,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
 //
 //
 //
@@ -3395,12 +3399,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      name: 'Vue'
+      name: 'Vue',
+      places: [],
+      errors: []
     };
   },
   mounted: function mounted() {
-    console.log(this.$auth.check());
-    console.log(this.$auth.user());
+    var _this = this;
+
+    axios.get('/places').then(function (response) {
+      if (response.status >= 200 && response.status < 300) {
+        return response;
+      } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }).then(function (response) {
+      if (response.headers['content-type'] !== 'application/json') {
+        var error = new Error('Некорректный ответ от сервера');
+        error.response = response;
+        throw error;
+      }
+
+      return response.data;
+    }).then(function (json) {
+      if (_typeof(json.places) === 'object') {
+        _this.places = json.places;
+        console.log(_this.places);
+      }
+    })["catch"](function (error) {
+      console.log(_typeof(error));
+
+      if (typeof error.message !== 'undefined') {
+        _this.errors.push(_this.$t(error.message));
+      }
+
+      console.log(_this.errors);
+    });
+  },
+  computed: {
+    placesCount: function placesCount() {
+      return this.places.length;
+    }
   }
 });
 
@@ -25562,9 +25603,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$auth.check()
-    ? _c("h1", [_vm._v("GLOBUS-1 " + _vm._s(_vm.name))])
-    : _vm._e()
+  return _c("div", [
+    _vm.$auth.check()
+      ? _c("h1", [_vm._v("GLOBUS-1 " + _vm._s(_vm.name))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.$auth.check() ? _c("h2", [_vm._v(_vm._s(_vm.placesCount))]) : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -86614,7 +86659,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inB
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout","Password":"Password","Remember Me":"Remember Me","Username":"User name"}');
+module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout","Password":"Password","Remember Me":"Remember Me","Request failed with status code 404":"Request failed with status code 404","Username":"User name"}');
 
 /***/ }),
 
@@ -86625,7 +86670,7 @@ module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout",
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Clear":"Очистить","Login":"Вход","Logout":"Выход","Password":"Пароль","Remember Me":"Запомнить меня","Username":"Логин"}');
+module.exports = JSON.parse('{"Clear":"Очистить","Login":"Вход","Logout":"Выход","Password":"Пароль","Remember Me":"Запомнить меня","Request failed with status code 404":"Ошибка запроса, код состояния 404","Username":"Логин"}');
 
 /***/ })
 

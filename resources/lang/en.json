@@ -4,5 +4,6 @@
 	"Logout": "Logout",
 	"Password": "Password",
 	"Remember Me": "Remember Me",
+	"Request failed with status code 404": "Request failed with status code 404",
 	"Username": "User name"
 }

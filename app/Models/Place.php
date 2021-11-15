@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $coords
  * @property integer $type
- * @property string $owners_name
+ * @property string $
  * @property string $owners_surname
  * @property string $owners_patronymic
  * @property string $owners_email

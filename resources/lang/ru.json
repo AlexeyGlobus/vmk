@@ -4,5 +4,6 @@
 	"Logout": "Выход",
 	"Password": "Пароль",
 	"Remember Me": "Запомнить меня",
+	"Request failed with status code 404": "Ошибка запроса, код состояния 404",	
 	"Username": "Логин"
 }
