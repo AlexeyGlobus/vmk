@@ -23,13 +23,10 @@ class PlaceController extends Controller
                 type,
                 owners_name,
                 owners_surname,
-                owners_patronymic,
-                owners_email,
-                owners_phone,
-                ST_X(ST_AsText(coords)) as lat,
-                ST_Y(ST_AsText(coords)) as lng
+                owners_patronymic
                 ')
             )
+        ->orderBy('name', 'asc')
         ->get();
         return response()->json(
             [
@@ -63,12 +60,32 @@ class PlaceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        //
+        $place = DB::table('places')
+            ->select(DB::raw('
+                id,
+                name,
+                type,
+                owners_name,
+                owners_surname,
+                owners_patronymic,
+                owners_email,
+                owners_phone,
+                ST_X(ST_AsText(coords)) as lat,
+                ST_Y(ST_AsText(coords)) as lng
+                ')
+            )->where('name', '=', $name)
+        ->first();
+        return response()->json(
+            [
+                'status' => 'success',
+                'place' => $place
+            ], 200
+        );
     }
 
     /**

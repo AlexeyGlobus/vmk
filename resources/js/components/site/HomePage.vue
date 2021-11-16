@@ -66,14 +66,11 @@
                 }).then(json => {
                     if (typeof json.places === 'object') {
                         this.places = json.places;
-                        console.log(this.places)
                     }
                 }).catch(error => {
-                     console.log(typeof error);
                      if (typeof error.message !== 'undefined') {
                         this.errors.push(this.$t(error.message));
                      }
-                     console.log(this.errors);
             });
         },
         computed: {

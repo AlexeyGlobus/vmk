@@ -3387,22 +3387,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Place",
-  props: ['id'],
+  name: "PlaceView",
+  props: ['name'],
+  place: {},
+  errors: [],
   mounted: function mounted() {
-    console.log(this.$route.params.name);
+    var _this = this;
+
+    axios.get('/places/' + this.$route.params.name).then(function (response) {
+      if (response.status >= 200 && response.status < 300) {
+        return response;
+      } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }).then(function (response) {
+      if (response.headers['content-type'] !== 'application/json') {
+        var error = new Error('Некорректный ответ от сервера');
+        error.response = response;
+        throw error;
+      }
+
+      return response.data;
+    }).then(function (json) {
+      if (_typeof(json.place) === 'object') {
+        _this.place = json.place;
+        console.log(_this);
+        console.log(_this.place);
+      }
+    })["catch"](function (error) {
+      if (typeof error.message !== 'undefined') {
+        _this.errors.push(_this.$t(error.message));
+      }
+    });
   },
-  computed: {
-    bulletin: function bulletin() {
-      var id = this.id;
-      console.log(id);
-    }
-  }
+  computed: {}
 });
 
 /***/ }),
