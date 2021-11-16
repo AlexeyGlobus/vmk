@@ -18,6 +18,7 @@ class PlaceController extends Controller
         //$places = Place::all();
         $places = DB::table('places')
             ->select(DB::raw('
+                id,
                 name,
                 type,
                 owners_name,

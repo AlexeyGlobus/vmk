@@ -14,6 +14,7 @@ let NotFound = require('./pages/NotFound.vue');*/
 
 import HomePage from './components/site/HomePage.vue';
 import Login from './components/site/Login.vue';
+import ViewPlace from './components/place/View.vue';
 
 /*import Bulletin from './components/Bulletins/Bulletin.vue'
 import Create from './components/Bulletins/Create.vue'
@@ -36,6 +37,14 @@ export default new VueRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/place/:name',
+            name: 'ViewPlace',
+            component: ViewPlace,
+            meta: {
+                auth: true
+            }
         },
 /*        {
            path: '/register',
