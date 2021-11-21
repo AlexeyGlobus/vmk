@@ -1,13 +1,26 @@
 <template>
-	<h1>{{ $route.params.name }}</h1>
+    <div>
+	   <h1>{{ place.name }}</h1>
+        <v-card elevation="2">
+            <Map :place="place" v-if="locationIsReady"/>    
+        </v-card>
+    </div>
 </template>
 
 <script>
-	    export default {
+    import Map from './Map.vue';
+    export default {
+        data: function () {
+            return {
+                name: 'PlaceView',
+                place: {},
+                errors: []
+            }
+        },
         name: "PlaceView",
-        props: ['name'],
-        place: {},
-        errors: [],
+        components: {
+            Map
+        },
         mounted() {
             axios
               .get('/places/' + this.$route.params.name )
@@ -37,6 +50,10 @@
                 });
         },
         computed: {
+            locationIsReady() {
+                return typeof this.place.lat !== 'undefined' && 
+                typeof this.place.lng !== 'undefined';
+            }
         }
     }
 </script>

@@ -5,6 +5,7 @@ import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
+import VueBingMaps from 'vue-bing-maps';
 
 import VueAuth               from '@websanova/vue-auth/dist/v2/vue-auth.esm.js';
 import driverAuthBearer      from '@websanova/vue-auth/dist/drivers/auth/bearer.esm.js';
@@ -61,7 +62,8 @@ const authConfig = {
     }
 };
 
-Vue.use(VueAuth, authConfig)
+Vue.use(VueAuth, authConfig);
+Vue.use(VueBingMaps, { debug: true });
 
 import App from './App.vue';
 
