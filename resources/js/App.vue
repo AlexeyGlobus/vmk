@@ -105,8 +105,13 @@
   }
 </script>
 
-<style scoped>
+<style>
   #routerContent {
     padding-top: 96px;
   }
+
+.headers {
+  color:  #616161;
+  padding: 0 0 10px 20px;
+}
 </style>

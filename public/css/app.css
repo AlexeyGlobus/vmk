@@ -29443,6 +29443,8 @@ html.overflow-y-hidden {
 }
 
 /*# sourceMappingURL=vuetify.css.map*/
-
+body {
+	font-family: Roboto;
+}
 
 /*# sourceMappingURL=app.css.map*/

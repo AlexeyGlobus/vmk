@@ -1,9 +1,13 @@
 {
+	"Boathouse": "Boathouse",
+	"Boathouses": "Boathouses",
 	"Clear": "Clear",
 	"Login": "Login",
 	"Logout": "Logout",
+	"of": "of",
 	"Password": "Password",
 	"Remember Me": "Remember Me",
 	"Request failed with status code 404": "Request failed with status code 404",
+	"Search": "Search",
 	"Username": "User name"
 }

@@ -1,9 +1,13 @@
 {
+	"Boathouse": "Эллинг",
+	"Boathouses": "Стояночные места",
 	"Clear": "Очистить",
 	"Login": "Вход",
 	"Logout": "Выход",
+	"of": "из",
 	"Password": "Пароль",
 	"Remember Me": "Запомнить меня",
-	"Request failed with status code 404": "Ошибка запроса, код состояния 404",	
+	"Request failed with status code 404": "Ошибка запроса, код состояния 404",
+	"Search": "Поиск",
 	"Username": "Логин"
 }

@@ -3407,12 +3407,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PlaceOnTheMap',
-  props: ['place'],
+  props: {
+    place: Object
+  },
   data: function data() {
     return {
       apiKey: "".concat("AlC8NAM3Yr26fO0iJiUKhXxgfXQvuX5J2_ZLN4ujjklx4Xssbfl-wF6oUk1QO0_1"),
       mapOptions: {
-        zoom: 18,
+        zoom: 16,
         center: {
           latitude: parseFloat(this.place.lat),
           longitude: parseFloat(this.place.lng)
@@ -3425,13 +3427,13 @@ __webpack_require__.r(__webpack_exports__);
         showZoomButtons: false
       },
       pins: [{
-        key: 'pin1',
+        key: this.place.id,
         location: {
           latitude: parseFloat(this.place.lat),
           longitude: parseFloat(this.place.lng)
         },
         options: {
-          title: 'pin 1',
+          title: this.place.name,
           visible: true
         }
       }]
@@ -3455,6 +3457,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Map.vue */ "./resources/js/components/place/Map.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3566,11 +3573,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      name: 'Vue',
+      name: 'Home',
       places: [],
+      placesSearch: '',
       errors: []
     };
   },
@@ -3606,6 +3621,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   computed: {
     placesCount: function placesCount() {
       return this.places.length;
+    },
+    filteredPlaces: function filteredPlaces() {
+      var _this2 = this;
+
+      return this.places.filter(function (place) {
+        return place.name.indexOf(_this2.placesSearch) !== -1 || place.owners_name.indexOf(_this2.placesSearch) !== -1 || place.owners_surname.indexOf(_this2.placesSearch) !== -1;
+      });
+    },
+    filteredPlacesCount: function filteredPlacesCount() {
+      return this.filteredPlaces.length;
     }
   }
 });
@@ -4037,10 +4062,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "/*!\n* Vuetify v2.5.10\n* Forged by Jo
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4057,7 +4082,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#routerContent[data-v-f348271a] {\n  padding-top: 96px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/App.vue"],"names":[],"mappings":";AA4GA;EACA,iBAAA;AACA","sourcesContent":["<template>\n  <!-- App.vue -->\n  <v-app>\n    <v-navigation-drawer app v-if=\"false\">\n      <!-- -->\n    </v-navigation-drawer>\n      <v-app-bar\n        absolute\n        color=\"#6A76AB\"\n        dark\n        dense\n        src=\"/img/navbar.JPG\"\n        fade-img-on-scroll\n      >\n        <template v-slot:img=\"{ props }\">\n          <v-img\n            v-bind=\"props\"\n            gradient=\"to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)\"\n          ></v-img>\n        </template>\n\n        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->\n\n        <v-app-bar-title>GLOBUS</v-app-bar-title>\n\n        <v-spacer></v-spacer>\n\n        <v-btn icon>\n          <v-icon>mdi-magnify</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-heart</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-dots-vertical</v-icon>\n        </v-btn>\n\n        <template v-slot:extension>\n          <v-tabs align-with-title>\n            <v-tab\n              v-for=\"link of links\"\n              :key=\"link.title\"\n              :to=\"link.url\"\n              @click.prevent=\"\"\n              exact>\n              <!-- <v-icon>{{ link.icon }}</v-icon> -->\n              {{ link.title }}\n            </v-tab>\n            <v-tab\n              v-if=\"$auth.check()\"\n              :key=\"\"\n              @click.prevent=\"$auth.logout({makeRequest: true,redirect: {name: 'login'}})\"\n              exact>\n              LOGOUT\n            </v-tab>\n          </v-tabs>\n        </template>\n      </v-app-bar>\n\n    <!-- Sizes your content based upon application components -->\n    <v-main>\n\n      <!-- Provides the application the proper gutter -->\n      <v-container fluid id=\"routerContent\" class=\"fill-height\">\n        <!-- If using vue-router -->\n        <router-view></router-view>\n      </v-container>\n    </v-main>\n\n    <v-footer app>\n      <!-- -->\n      <p> {{ $t(\"Login\") }}</p>\n    </v-footer>\n  </v-app>\n</template>\n\n<script>\n  export default {\n      props: {\n          source: String,\n      },\n      name: \"Globus\",\n      data: () => {\n          return {\n              text: 'This part of application is rendered in Vue.',\n              drawer: false,\n          }\n      },\n      computed: {\n        links() {\n          let links = [];\n          if (this.$auth.check()) {\n            links.push({title: 'Home', icon: 'mdi-home', url: '/'});\n            links.push({title: 'Orders', icon: 'shop', url: '/orders'});\n          } else {\n            links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  \n          }\n          return links;\n        },\n      },\n      created() {\n      }\n  }\n</script>\n\n<style scoped>\n  #routerContent {\n    padding-top: 96px;\n  }\n</style>"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#routerContent {\n    padding-top: 96px;\n}\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/App.vue"],"names":[],"mappings":";AA4GA;IACA,iBAAA;AACA;AAEA;EACA,eAAA;EACA,sBAAA;AACA","sourcesContent":["<template>\n  <!-- App.vue -->\n  <v-app>\n    <v-navigation-drawer app v-if=\"false\">\n      <!-- -->\n    </v-navigation-drawer>\n      <v-app-bar\n        absolute\n        color=\"#6A76AB\"\n        dark\n        dense\n        src=\"/img/navbar.JPG\"\n        fade-img-on-scroll\n      >\n        <template v-slot:img=\"{ props }\">\n          <v-img\n            v-bind=\"props\"\n            gradient=\"to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)\"\n          ></v-img>\n        </template>\n\n        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->\n\n        <v-app-bar-title>GLOBUS</v-app-bar-title>\n\n        <v-spacer></v-spacer>\n\n        <v-btn icon>\n          <v-icon>mdi-magnify</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-heart</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-dots-vertical</v-icon>\n        </v-btn>\n\n        <template v-slot:extension>\n          <v-tabs align-with-title>\n            <v-tab\n              v-for=\"link of links\"\n              :key=\"link.title\"\n              :to=\"link.url\"\n              @click.prevent=\"\"\n              exact>\n              <!-- <v-icon>{{ link.icon }}</v-icon> -->\n              {{ link.title }}\n            </v-tab>\n            <v-tab\n              v-if=\"$auth.check()\"\n              :key=\"\"\n              @click.prevent=\"$auth.logout({makeRequest: true,redirect: {name: 'login'}})\"\n              exact>\n              LOGOUT\n            </v-tab>\n          </v-tabs>\n        </template>\n      </v-app-bar>\n\n    <!-- Sizes your content based upon application components -->\n    <v-main>\n\n      <!-- Provides the application the proper gutter -->\n      <v-container fluid id=\"routerContent\" class=\"fill-height\">\n        <!-- If using vue-router -->\n        <router-view></router-view>\n      </v-container>\n    </v-main>\n\n    <v-footer app>\n      <!-- -->\n      <p> {{ $t(\"Login\") }}</p>\n    </v-footer>\n  </v-app>\n</template>\n\n<script>\n  export default {\n      props: {\n          source: String,\n      },\n      name: \"Globus\",\n      data: () => {\n          return {\n              text: 'This part of application is rendered in Vue.',\n              drawer: false,\n          }\n      },\n      computed: {\n        links() {\n          let links = [];\n          if (this.$auth.check()) {\n            links.push({title: 'Home', icon: 'mdi-home', url: '/'});\n            links.push({title: 'Orders', icon: 'shop', url: '/orders'});\n          } else {\n            links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  \n          }\n          return links;\n        },\n      },\n      created() {\n      }\n  }\n</script>\n\n<style>\n  #routerContent {\n    padding-top: 96px;\n  }\n\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n</style>"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4084,7 +4109,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bing-map[data-v-c0446f0e] {\n  width: 300px;\n  height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/components/place/Map.vue"],"names":[],"mappings":";AA4DA;EACA,YAAA;EACA,aAAA;AACA","sourcesContent":["<template>\n  <div class=\"map-wrap\">\n    <div class=\"bing-map\">\n      <bing-map \n        :credentials=\"apiKey\" \n        :options=\"mapOptions\"\n        ref=\"bingMap\"\n      >\n        <bing-map-layer name=\"layer-1\">\n          <bing-map-pushpin v-for=\"item in pins\" \n            :key=\"item.key\"\n            :location=\"item.location\" \n            :options=\"item.options\">\n          </bing-map-pushpin>\n        </bing-map-layer>\n      </bing-map>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'PlaceOnTheMap',\n  props: ['place'],\n  data: function(){\n    return {\n      apiKey: `${process.env.MIX_BING_MAPS_API_KEY}`,\n      mapOptions: {\n        zoom: 18,\n        center: {\n          latitude: parseFloat(this.place.lat), \n          longitude: parseFloat(this.place.lng)\n        },\n        mapTypeId: 'aerial',\n        showMapTypeSelector: false,\n        showScalebar: false,\n        showTermsLink: false,\n        showLocateMeButton: false,\n        showZoomButtons: false\n      },\n      pins: [\n        {\n          key: 'pin1',\n          location: {\n            latitude: parseFloat(this.place.lat),\n            longitude: parseFloat(this.place.lng)\n          },\n          options: {\n            title: 'pin 1',\n            visible: true\n          }\n        }\n      ]\n    };\n  }\n}\n</script>\n\n<!-- Add \"scoped\" attribute to limit CSS to this component only -->\n<style scoped>\n.bing-map {\n  width: 300px;\n  height: 300px;\n}\n</style>"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bing-map[data-v-c0446f0e] {\n  width: 300px;\n  height: 300px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/components/place/Map.vue"],"names":[],"mappings":";AA8DA;EACA,YAAA;EACA,aAAA;AACA","sourcesContent":["<template>\n  <div class=\"map-wrap\">\n    <div class=\"bing-map\">\n      <bing-map \n        :credentials=\"apiKey\" \n        :options=\"mapOptions\"\n        ref=\"bingMap\"\n      >\n        <bing-map-layer name=\"layer-1\">\n          <bing-map-pushpin v-for=\"item in pins\" \n            :key=\"item.key\"\n            :location=\"item.location\" \n            :options=\"item.options\">\n          </bing-map-pushpin>\n        </bing-map-layer>\n      </bing-map>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'PlaceOnTheMap',\n  props: {\n    place: Object\n  },\n  data: function(){\n    return {\n      apiKey: `${process.env.MIX_BING_MAPS_API_KEY}`,\n      mapOptions: {\n        zoom: 16,\n        center: {\n          latitude: parseFloat(this.place.lat), \n          longitude: parseFloat(this.place.lng)\n        },\n        mapTypeId: 'aerial',\n        showMapTypeSelector: false,\n        showScalebar: false,\n        showTermsLink: false,\n        showLocateMeButton: false,\n        showZoomButtons: false\n      },\n      pins: [\n        {\n          key: this.place.id,\n          location: {\n            latitude: parseFloat(this.place.lat),\n            longitude: parseFloat(this.place.lng)\n          },\n          options: {\n            title: this.place.name,\n            visible: true\n          }\n        }\n      ]\n    };\n  }\n}\n</script>\n\n<!-- Add \"scoped\" attribute to limit CSS to this component only -->\n<style scoped>\n.bing-map {\n  width: 300px;\n  height: 300px;\n}\n</style>"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22861,10 +22886,10 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22874,7 +22899,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_f348271a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css&");
 
             
 
@@ -22883,11 +22908,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_f348271a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_f348271a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -25515,9 +25540,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=f348271a&scoped=true& */ "./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true&");
+/* harmony import */ var _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=f348271a& */ "./resources/js/App.vue?vue&type=template&id=f348271a&");
 /* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/App.vue?vue&type=script&lang=js&");
-/* harmony import */ var _App_vue_vue_type_style_index_0_id_f348271a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& */ "./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&");
+/* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/App.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -25529,11 +25554,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "f348271a",
+  null,
   null
   
 )
@@ -25783,15 +25808,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************!*\
+  !*** ./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_f348271a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&id=f348271a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css&");
 
 
 /***/ }),
@@ -25809,19 +25834,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true& ***!
-  \*************************************************************************/
+/***/ "./resources/js/App.vue?vue&type=template&id=f348271a&":
+/*!*************************************************************!*\
+  !*** ./resources/js/App.vue?vue&type=template&id=f348271a& ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=template&id=f348271a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=template&id=f348271a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&");
 
 
 /***/ }),
@@ -25894,10 +25919,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a& ***!
+  \****************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26139,11 +26164,25 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", [_vm._v(_vm._s(_vm.place.name))]),
+      _c("div", { staticClass: "headers" }, [
+        _c("h2", [_vm._v(_vm._s(_vm.place.name))]),
+        _vm._v(" "),
+        _c("h3", [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.place.owners_name) +
+              " " +
+              _vm._s(_vm.place.owners_patronymic) +
+              " " +
+              _vm._s(_vm.place.owners_surname) +
+              "\n        "
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "v-card",
-        { attrs: { elevation: "2" } },
+        { attrs: { elevation: "4" } },
         [
           _vm.locationIsReady
             ? _c("Map", { attrs: { place: _vm.place } })
@@ -26178,84 +26217,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.$auth.check()
-      ? _c("h1", [_vm._v("GLOBUS-1 " + _vm._s(_vm.name))])
-      : _vm._e(),
-    _vm._v(" "),
-    !!_vm.placesCount
-      ? _c(
-          "div",
-          { staticStyle: { display: "flex", "flex-direction": "row" } },
-          _vm._l(_vm.places, function(place) {
-            return _c(
-              "v-card",
-              {
-                key: place.id,
-                staticClass: "ma-3",
-                attrs: {
-                  to: "/place/" + place.name,
-                  "max-width": "344",
-                  outlined: ""
-                }
-              },
-              [
-                _c(
-                  "v-list-item",
-                  { attrs: { "three-line": "" } },
-                  [
-                    _c(
-                      "v-list-item-content",
-                      [
-                        _c("div", { staticClass: "text-overline mb-4" }, [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(place.name) +
-                              "\n            "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-title",
-                          { staticClass: "text-h5 mb-1" },
-                          [
+  return _c(
+    "div",
+    [
+      _vm.$auth.check()
+        ? _c("h1", [
+            _vm._v(
+              "\n        " +
+                _vm._s(
+                  _vm.$t("Boathouses") +
+                    " " +
+                    _vm.filteredPlacesCount +
+                    " " +
+                    _vm.$t("of") +
+                    " " +
+                    _vm.placesCount
+                ) +
+                "\n    "
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("v-text-field", {
+        attrs: { label: _vm.$t("Search"), "append-icon": "mdi-magnify" },
+        model: {
+          value: _vm.placesSearch,
+          callback: function($$v) {
+            _vm.placesSearch = $$v
+          },
+          expression: "placesSearch"
+        }
+      }),
+      _vm._v(" "),
+      !!_vm.placesCount
+        ? _c(
+            "div",
+            { staticStyle: { display: "flex", "flex-direction": "row" } },
+            _vm._l(_vm.filteredPlaces, function(place) {
+              return _c(
+                "v-card",
+                {
+                  key: place.id,
+                  staticClass: "ma-3",
+                  attrs: {
+                    to: "/place/" + place.name,
+                    "max-width": "344",
+                    outlined: ""
+                  }
+                },
+                [
+                  _c(
+                    "v-list-item",
+                    { attrs: { "three-line": "" } },
+                    [
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c("div", { staticClass: "text-overline mb-4" }, [
                             _vm._v(
                               "\n              " +
                                 _vm._s(place.name) +
                                 "\n            "
                             )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("v-list-item-subtitle", [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(place.owners_name) +
-                              " " +
-                              _vm._s(place.owners_surname) +
-                              "\n            "
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-list-item-avatar",
-                      { attrs: { tile: "", size: "80", color: "#add8e6" } },
-                      [_c("img", { attrs: { src: "/img/boathouse.svg" } })]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          }),
-          1
-        )
-      : _vm._e()
-  ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-title",
+                            { staticClass: "text-h5 mb-1" },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(place.name) +
+                                  "\n            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("v-list-item-subtitle", [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(place.owners_name) +
+                                " " +
+                                _vm._s(place.owners_surname) +
+                                "\n            "
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-avatar",
+                        { attrs: { tile: "", size: "80", color: "#add8e6" } },
+                        [_c("img", { attrs: { src: "/img/boathouse.svg" } })]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -87305,7 +87373,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inB
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout","Password":"Password","Remember Me":"Remember Me","Request failed with status code 404":"Request failed with status code 404","Username":"User name"}');
+module.exports = JSON.parse('{"Boathouse":"Boathouse","Boathouses":"Boathouses","Clear":"Clear","Login":"Login","Logout":"Logout","of":"of","Password":"Password","Remember Me":"Remember Me","Request failed with status code 404":"Request failed with status code 404","Search":"Search","Username":"User name"}');
 
 /***/ }),
 
@@ -87316,7 +87384,7 @@ module.exports = JSON.parse('{"Clear":"Clear","Login":"Login","Logout":"Logout",
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Clear":"Очистить","Login":"Вход","Logout":"Выход","Password":"Пароль","Remember Me":"Запомнить меня","Request failed with status code 404":"Ошибка запроса, код состояния 404","Username":"Логин"}');
+module.exports = JSON.parse('{"Boathouse":"Эллинг","Boathouses":"Стояночные места","Clear":"Очистить","Login":"Вход","Logout":"Выход","of":"из","Password":"Пароль","Remember Me":"Запомнить меня","Request failed with status code 404":"Ошибка запроса, код состояния 404","Search":"Поиск","Username":"Логин"}');
 
 /***/ })
 

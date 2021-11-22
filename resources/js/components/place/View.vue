@@ -1,7 +1,12 @@
 <template>
     <div>
-	   <h1>{{ place.name }}</h1>
-        <v-card elevation="2">
+        <div class="headers">
+            <h2>{{ place.name }}</h2>
+            <h3>
+            {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
+            </h3>
+        </div>
+        <v-card elevation="4">
             <Map :place="place" v-if="locationIsReady"/>    
         </v-card>
     </div>

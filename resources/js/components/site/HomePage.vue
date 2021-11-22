@@ -1,13 +1,20 @@
 <template>
     <div>
-    	<h1 v-if="$auth.check()">GLOBUS-1 {{ name }}</h1>	
+    	<h1 v-if="$auth.check()">
+            {{ $t('Boathouses') + ' ' + filteredPlacesCount + ' ' + $t('of') + ' ' + placesCount }}
+        </h1>
+          <v-text-field
+            :label="$t('Search')"
+            v-model="placesSearch"
+            append-icon="mdi-magnify"
+          ></v-text-field>	
         <div v-if="!!placesCount" style="display: flex;flex-direction: row;">
           <v-card
             :to="'/place/' + place.name"
             class="ma-3"
             max-width="344"
             outlined
-            v-for="place in places"
+            v-for="place in filteredPlaces"
             :key="place.id"
           >
             <v-list-item three-line>
@@ -40,8 +47,9 @@
     export default {
         data: function () {
             return {
-                name: 'Vue',
+                name: 'Home',
                 places: [],
+                placesSearch: '',
                 errors: []
             }
         },
@@ -76,7 +84,17 @@
         computed: {
             placesCount() {
                 return this.places.length;
-            }
+            },
+            filteredPlaces() {
+                return this.places.filter(place => {
+                    return (place.name.indexOf(this.placesSearch) !== -1) ||
+                    (place.owners_name.indexOf(this.placesSearch) !== -1) ||
+                    (place.owners_surname.indexOf(this.placesSearch) !== -1);
+                })
+            },
+            filteredPlacesCount() {
+                return this.filteredPlaces.length;
+            },
         }
     }
 </script>

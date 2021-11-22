@@ -21,12 +21,14 @@
 <script>
 export default {
   name: 'PlaceOnTheMap',
-  props: ['place'],
+  props: {
+    place: Object
+  },
   data: function(){
     return {
       apiKey: `${process.env.MIX_BING_MAPS_API_KEY}`,
       mapOptions: {
-        zoom: 18,
+        zoom: 16,
         center: {
           latitude: parseFloat(this.place.lat), 
           longitude: parseFloat(this.place.lng)
@@ -40,13 +42,13 @@ export default {
       },
       pins: [
         {
-          key: 'pin1',
+          key: this.place.id,
           location: {
             latitude: parseFloat(this.place.lat),
             longitude: parseFloat(this.place.lng)
           },
           options: {
-            title: 'pin 1',
+            title: this.place.name,
             visible: true
           }
         }
