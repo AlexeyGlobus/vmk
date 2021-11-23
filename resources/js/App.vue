@@ -63,7 +63,7 @@
     <v-main>
 
       <!-- Provides the application the proper gutter -->
-      <v-container fluid id="routerContent" class="fill-height">
+      <v-container fluid id="routerContent" class="justify-center">
         <!-- If using vue-router -->
         <router-view></router-view>
       </v-container>

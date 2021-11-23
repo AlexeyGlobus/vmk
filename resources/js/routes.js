@@ -14,7 +14,8 @@ let NotFound = require('./pages/NotFound.vue');*/
 
 import HomePage from './components/site/HomePage.vue';
 import Login from './components/site/Login.vue';
-import ViewPlace from './components/place/View.vue';
+import PlaceView from './components/place/View.vue';
+import PlaceForm from './components/place/Form.vue';
 
 /*import Bulletin from './components/Bulletins/Bulletin.vue'
 import Create from './components/Bulletins/Create.vue'
@@ -40,8 +41,16 @@ export default new VueRouter({
         },
         {
             path: '/place/:name',
-            name: 'ViewPlace',
-            component: ViewPlace,
+            name: 'PlaceView',
+            component: PlaceView,
+            meta: {
+                auth: true
+            }
+        },
+        {
+            path: '/create-place',
+            name: 'PlaceForm',
+            component: PlaceForm,
             meta: {
                 auth: true
             }

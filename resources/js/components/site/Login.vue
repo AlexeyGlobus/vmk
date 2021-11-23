@@ -24,7 +24,7 @@
                 </v-col>
               </v-row>
             </v-alert>
-              <v-form ref="form">
+              <v-form ref="form" @submit="login">
                 <v-text-field
                   v-model="username"
                   :counter="10"
