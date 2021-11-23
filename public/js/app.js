@@ -3367,6 +3367,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return links;
+    },
+    _user: function _user() {
+      return this.$auth.user() || {};
+    },
+    username: function username() {
+      if (typeof this._user.username === 'string') {
+        return this._user.username;
+      } else {
+        return this.$t('Guest');
+      }
     }
   },
   created: function created() {}
@@ -4082,7 +4092,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#routerContent {\n    padding-top: 96px;\n}\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/App.vue"],"names":[],"mappings":";AA4GA;IACA,iBAAA;AACA;AAEA;EACA,eAAA;EACA,sBAAA;AACA","sourcesContent":["<template>\n  <!-- App.vue -->\n  <v-app>\n    <v-navigation-drawer app v-if=\"false\">\n      <!-- -->\n    </v-navigation-drawer>\n      <v-app-bar\n        absolute\n        color=\"#6A76AB\"\n        dark\n        dense\n        src=\"/img/navbar.JPG\"\n        fade-img-on-scroll\n      >\n        <template v-slot:img=\"{ props }\">\n          <v-img\n            v-bind=\"props\"\n            gradient=\"to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)\"\n          ></v-img>\n        </template>\n\n        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->\n\n        <v-app-bar-title>GLOBUS</v-app-bar-title>\n\n        <v-spacer></v-spacer>\n\n        <v-btn icon>\n          <v-icon>mdi-magnify</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-heart</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-dots-vertical</v-icon>\n        </v-btn>\n\n        <template v-slot:extension>\n          <v-tabs align-with-title>\n            <v-tab\n              v-for=\"link of links\"\n              :key=\"link.title\"\n              :to=\"link.url\"\n              @click.prevent=\"\"\n              exact>\n              <!-- <v-icon>{{ link.icon }}</v-icon> -->\n              {{ link.title }}\n            </v-tab>\n            <v-tab\n              v-if=\"$auth.check()\"\n              :key=\"\"\n              @click.prevent=\"$auth.logout({makeRequest: true,redirect: {name: 'login'}})\"\n              exact>\n              LOGOUT\n            </v-tab>\n          </v-tabs>\n        </template>\n      </v-app-bar>\n\n    <!-- Sizes your content based upon application components -->\n    <v-main>\n\n      <!-- Provides the application the proper gutter -->\n      <v-container fluid id=\"routerContent\" class=\"fill-height\">\n        <!-- If using vue-router -->\n        <router-view></router-view>\n      </v-container>\n    </v-main>\n\n    <v-footer app>\n      <!-- -->\n      <p> {{ $t(\"Login\") }}</p>\n    </v-footer>\n  </v-app>\n</template>\n\n<script>\n  export default {\n      props: {\n          source: String,\n      },\n      name: \"Globus\",\n      data: () => {\n          return {\n              text: 'This part of application is rendered in Vue.',\n              drawer: false,\n          }\n      },\n      computed: {\n        links() {\n          let links = [];\n          if (this.$auth.check()) {\n            links.push({title: 'Home', icon: 'mdi-home', url: '/'});\n            links.push({title: 'Orders', icon: 'shop', url: '/orders'});\n          } else {\n            links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  \n          }\n          return links;\n        },\n      },\n      created() {\n      }\n  }\n</script>\n\n<style>\n  #routerContent {\n    padding-top: 96px;\n  }\n\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n</style>"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#routerContent {\n    padding-top: 96px;\n}\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n", "",{"version":3,"sources":["webpack://./resources/js/App.vue"],"names":[],"mappings":";AAsHA;IACA,iBAAA;AACA;AAEA;EACA,eAAA;EACA,sBAAA;AACA","sourcesContent":["<template>\n  <!-- App.vue -->\n  <v-app>\n    <v-navigation-drawer app v-if=\"false\">\n      <!-- -->\n    </v-navigation-drawer>\n      <v-app-bar\n        absolute\n        color=\"#6A76AB\"\n        dark\n        dense\n        src=\"/img/navbar.JPG\"\n        fade-img-on-scroll\n      >\n        <template v-slot:img=\"{ props }\">\n          <v-img\n            v-bind=\"props\"\n            gradient=\"to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)\"\n          ></v-img>\n        </template>\n\n        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->\n\n        <v-app-bar-title>{{ username }}</v-app-bar-title>\n\n        <v-spacer></v-spacer>\n\n        <v-btn icon>\n          <v-icon>mdi-magnify</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-heart</v-icon>\n        </v-btn>\n\n        <v-btn icon>\n          <v-icon>mdi-dots-vertical</v-icon>\n        </v-btn>\n\n        <template v-slot:extension>\n          <v-tabs align-with-title>\n            <v-tab\n              v-for=\"link of links\"\n              :key=\"link.title\"\n              :to=\"link.url\"\n              @click.prevent=\"\"\n              exact>\n              <!-- <v-icon>{{ link.icon }}</v-icon> -->\n              {{ link.title }}\n            </v-tab>\n            <v-tab\n              v-if=\"$auth.check()\"\n              :key=\"\"\n              @click.prevent=\"$auth.logout({makeRequest: true,redirect: {name: 'login'}})\"\n              exact>\n              LOGOUT\n            </v-tab>\n          </v-tabs>\n        </template>\n      </v-app-bar>\n\n    <!-- Sizes your content based upon application components -->\n    <v-main>\n\n      <!-- Provides the application the proper gutter -->\n      <v-container fluid id=\"routerContent\" class=\"fill-height\">\n        <!-- If using vue-router -->\n        <router-view></router-view>\n      </v-container>\n    </v-main>\n\n    <v-footer app>\n      <!-- -->\n      <p> {{ $t(\"Login\") }}</p>\n    </v-footer>\n  </v-app>\n</template>\n\n<script>\n  export default {\n      props: {\n          source: String,\n      },\n      name: \"Globus\",\n      data: () => {\n          return {\n              text: 'This part of application is rendered in Vue.',\n              drawer: false,\n          }\n      },\n      computed: {\n        links() {\n          let links = [];\n          if (this.$auth.check()) {\n            links.push({title: 'Home', icon: 'mdi-home', url: '/'});\n            links.push({title: 'Orders', icon: 'shop', url: '/orders'});\n          } else {\n            links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  \n          }\n          return links;\n        },\n        _user() {\n            return this.$auth.user() || {};\n        },\n        username() {\n          if (typeof this._user.username === 'string') {\n            return this._user.username;\n          } else {\n            return this.$t('Guest');\n          }\n        }\n      },\n      created() {\n      }\n  }\n</script>\n\n<style>\n  #routerContent {\n    padding-top: 96px;\n  }\n\n.headers {\n  color:  #616161;\n  padding: 0 0 10px 20px;\n}\n</style>"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -26033,7 +26043,7 @@ var render = function() {
         },
         [
           _vm._v(" "),
-          _c("v-app-bar-title", [_vm._v("GLOBUS")]),
+          _c("v-app-bar-title", [_vm._v(_vm._s(_vm.username))]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -26167,7 +26177,7 @@ var render = function() {
       _c("div", { staticClass: "headers" }, [
         _c("h2", [_vm._v(_vm._s(_vm.place.name))]),
         _vm._v(" "),
-        _c("h3", [
+        _c("h3", { staticStyle: { width: "280px" } }, [
           _vm._v(
             "\n        " +
               _vm._s(_vm.place.owners_name) +
@@ -87373,7 +87383,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inB
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Boathouse":"Boathouse","Boathouses":"Boathouses","Clear":"Clear","Login":"Login","Logout":"Logout","of":"of","Password":"Password","Remember Me":"Remember Me","Request failed with status code 404":"Request failed with status code 404","Search":"Search","Username":"User name"}');
+module.exports = JSON.parse('{"Boathouse":"Boathouse","Boathouses":"Boathouses","Clear":"Clear","Guest":"Guest","Login":"Login","Logout":"Logout","of":"of","Password":"Password","Remember Me":"Remember Me","Request failed with status code 404":"Request failed with status code 404","Search":"Search","Username":"User name"}');
 
 /***/ }),
 
@@ -87384,7 +87394,7 @@ module.exports = JSON.parse('{"Boathouse":"Boathouse","Boathouses":"Boathouses",
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"Boathouse":"Эллинг","Boathouses":"Стояночные места","Clear":"Очистить","Login":"Вход","Logout":"Выход","of":"из","Password":"Пароль","Remember Me":"Запомнить меня","Request failed with status code 404":"Ошибка запроса, код состояния 404","Search":"Поиск","Username":"Логин"}');
+module.exports = JSON.parse('{"Boathouse":"Эллинг","Boathouses":"Стояночные места","Clear":"Очистить","Guest":"Гость","Login":"Вход","Logout":"Выход","of":"из","Password":"Пароль","Remember Me":"Запомнить меня","Request failed with status code 404":"Ошибка запроса, код состояния 404","Search":"Поиск","Username":"Логин"}');
 
 /***/ })
 

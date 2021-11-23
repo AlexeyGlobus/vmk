@@ -21,7 +21,7 @@
 
         <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
-        <v-app-bar-title>GLOBUS</v-app-bar-title>
+        <v-app-bar-title>{{ username }}</v-app-bar-title>
 
         <v-spacer></v-spacer>
 
@@ -99,6 +99,16 @@
           }
           return links;
         },
+        _user() {
+            return this.$auth.user() || {};
+        },
+        username() {
+          if (typeof this._user.username === 'string') {
+            return this._user.username;
+          } else {
+            return this.$t('Guest');
+          }
+        }
       },
       created() {
       }

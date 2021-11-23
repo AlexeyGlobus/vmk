@@ -2,7 +2,7 @@
     <div>
         <div class="headers">
             <h2>{{ place.name }}</h2>
-            <h3>
+            <h3 style="width: 280px;">
             {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
             </h3>
         </div>
