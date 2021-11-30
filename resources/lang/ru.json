@@ -4,9 +4,12 @@
 	"Boathouses": "Стояночные места",
 	"Business": "Служебное",
 	"Clear": "Очистить",
+	"Close": "Закрыть",
 	"Guest": "Гость",
+	"Latitude": "Широта",
 	"Login": "Вход",
 	"Logout": "Выход",
+	"Longitude": "Долгота",
 	"of": "из",
 	"Other": "Другое",
 	"Owners email": "Email владельца",
@@ -21,5 +24,6 @@
 	"Request failed with status code 404": "Ошибка запроса, код состояния 404",
 	"Save": "Сохранить",
 	"Search": "Поиск",
+	"Select location": "Выбор местоположения",
 	"Username": "Логин"
 }

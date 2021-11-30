@@ -1,14 +1,36 @@
 <template>
     <div>
-        <div class="headers">
-            <h2>{{ place.name }}</h2>
-            <h3 style="width: 280px;">
-            {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
-            </h3>
-        </div>
-        <v-card elevation="4">
-            <Map :place="place" v-if="locationIsReady"/>    
-        </v-card>
+        <v-row
+        align="start"
+        justify="center"
+        class="mt-3"
+        >
+            <v-col
+              cols="12"
+              sm="12"
+              md="6"
+              lg="6"
+            >
+                <div class="headers">
+                    <h2>{{ place.name }}</h2>
+                    <h3 style="width: 280px;">
+                        {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
+                    </h3>
+                    <p v-if="place.owners_email">{{ place.owners_email }}</p>
+                    <p v-if="place.owners_phone">{{ place.owners_phone }}</p>
+                </div>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="12"
+                  md="6"
+                  lg="6"
+                >
+                <v-card elevation="4">
+                    <Map :place="place" v-if="locationIsReady"/>    
+                </v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
