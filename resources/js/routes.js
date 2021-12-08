@@ -40,7 +40,7 @@ export default new VueRouter({
             component: Login
         },
         {
-            path: '/place/:name',
+            path: '/place/:id',
             name: 'PlaceView',
             component: PlaceView,
             meta: {
@@ -48,7 +48,7 @@ export default new VueRouter({
             }
         },
         {
-            path: '/create-place',
+            path: '/places/create',
             name: 'PlaceForm',
             component: PlaceForm,
             meta: {
@@ -61,26 +61,11 @@ export default new VueRouter({
             component: Register
         },
         {
-            path: '/bulletin/:id',
-            props: true,
-            name: 'bulletin',
-            component: Bulletin
-        },
-        {
             path: '/create',
             name: 'create',
             component: Create
         },
-        {
-            path: '/list',
-            name: 'list',
-            component: List
-        },
-        {
-            path: '/orders',
-            name: 'orders',
-            component: Orders
-        }*/
+*/
     ],
     mode: "history"
 });

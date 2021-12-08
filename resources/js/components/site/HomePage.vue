@@ -10,7 +10,7 @@
           ></v-text-field>	
         <div v-if="!!placesCount" style="display: flex;flex-direction: row;">
           <v-card
-            :to="'/place/' + place.name"
+            :to="'/place/' + place.id"
             class="ma-3"
             max-width="344"
             outlined
@@ -79,7 +79,7 @@
                      if (typeof error.message !== 'undefined') {
                         this.errors.push(this.$t(error.message));
                      }
-            });
+                });
         },
         computed: {
             placesCount() {

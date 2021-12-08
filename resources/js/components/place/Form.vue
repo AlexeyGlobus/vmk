@@ -31,12 +31,12 @@
             :label="$t('Place type')"
           ></v-select>
           <v-text-field
-            v-model="place.lat"
+            v-model="place.coords[0]"
             :label="$t('Latitude')"
             required
           ></v-text-field>
           <v-text-field
-            v-model="place.lng"
+            v-model="place.coords[1]"
             :label="$t('Longitude')"
             required
           ></v-text-field>
@@ -135,8 +135,7 @@
           owners_surname: '',
           owners_email: '',
           owners_phone: '',
-          lat: '',
-          lng: ''
+          coords: []
         },
         showMap: false,
         name: 'PlaceForm',
@@ -153,7 +152,42 @@
     },
     methods: {
       save(e) {
-        console.log(this.place);
+        axios
+          .post('/places', this.formatPlace())
+          .then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    let error = new Error(response.statusText);
+                    error.response = response;
+                    throw error
+                }
+            }).then(response => {
+                if (response.headers['content-type'] !== 'application/json') {
+                    let error = new Error('Некорректный ответ от сервера');
+                    error.response = response;
+                    throw error
+                }
+                return response.data;
+            }).then(json => {
+                //console.log(json)
+            }).catch(error => {
+                 if (typeof error.message !== 'undefined') {
+                    this.errors.push(this.$t(error.message));
+                 }
+            });
+      },
+      formatPlace() {
+        let place = this.place;
+        if (typeof this.place.coords === 'object' 
+          && typeof this.place.coords[0] === 'number' 
+          && typeof this.place.coords[1] === 'number'
+          ) {
+          place.coords = 'point(' + this.place.coords[0] + ' ' + this.place.coords[1] + ')'; 
+        } else {
+          place.coords = '';
+        }
+        return place;
       }
     },
     created() {

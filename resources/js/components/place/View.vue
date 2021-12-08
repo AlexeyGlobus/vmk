@@ -50,7 +50,7 @@
         },
         mounted() {
             axios
-              .get('/places/' + this.$route.params.name )
+              .get('/places/' + this.$route.params.id )
               .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                         return response;
@@ -69,6 +69,15 @@
                 }).then(json => {
                     if (typeof json.place === 'object') {
                         this.place = json.place;
+                        if (!!this.place.coords.length) {
+                            let coords = this.place.coords.match(/\d+\.*\d*/g);
+                            coords.forEach((x, i) => {
+                                coords[i] = parseFloat(x);
+                            });
+                            this.place.coords = coords;
+                        } else {
+                            this.place.coords = [];
+                        }
                     }
                 }).catch(error => {
                      if (typeof error.message !== 'undefined') {
@@ -78,8 +87,9 @@
         },
         computed: {
             locationIsReady() {
-                return typeof this.place.lat !== 'undefined' && 
-                typeof this.place.lng !== 'undefined';
+                return typeof this.place.coords === 'object' && 
+                typeof this.place.coords[0] !== 'undefined' && 
+                typeof this.place.coords[1] !== 'undefined';
             }
         }
     }

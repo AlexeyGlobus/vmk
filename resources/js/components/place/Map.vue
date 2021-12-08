@@ -27,8 +27,8 @@ export default {
         credentials: `${process.env.MIX_BING_MAPS_API_KEY}`, 
         zoom: 17,
         center: {
-          latitude: `${process.env.MIX_BING_MAP_CENTER_LAT}`, 
-          longitude: `${process.env.MIX_BING_MAP_CENTER_LNG}`
+          latitude: parseFloat(`${process.env.MIX_BING_MAP_CENTER_LAT}`), 
+          longitude: parseFloat(`${process.env.MIX_BING_MAP_CENTER_LNG}`)
         },
         mapTypeId: 'a',
         showMapTypeSelector: false,
@@ -44,8 +44,8 @@ export default {
         let point = new Microsoft.Maps.Point(e.x, e.y);
         let loc = this.mapInstance.tryPixelToLocation(point, Microsoft.Maps.PixelReference.page);
         if (typeof loc !== 'undefined' && !isNaN(loc.latitude) && !isNaN(loc.longitude)) {
-          this.place.lat = loc.latitude;
-          this.place.lng = loc.longitude;
+          this.place.coords[0] = loc.latitude;
+          this.place.coords[1] = loc.longitude;
           this.movePushpin();
         }       
     },
@@ -53,8 +53,8 @@ export default {
       if (!!this.pushpinInstance) {
         this.mapInstance.entities.remove(this.pushpinInstance);
       }
-      if (!isNaN(this.place.lat) && !isNaN(this.place.lng)) {
-        let point = new Microsoft.Maps.Location(this.place.lat, this.place.lng);
+      if (!!this.place.coords[0] && !!this.place.coords[1]) {
+        let point = new Microsoft.Maps.Location(this.place.coords[0], this.place.coords[1]);
         this.pushpinInstance = new Microsoft.Maps.Pushpin(point, {
           title: this.place.name,
           subTitle: 'City Center',
@@ -67,13 +67,12 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-        if (!isNaN(this.place.lat) && !isNaN(this.place.lng)) {
+        if (typeof this.place.coords === 'object' && !!this.place.coords[0] && !!this.place.coords[1]) {
           this.mapOptions.center = {
-            latitude: this.place.lat, 
-            longitude: this.place.lng  
+            latitude: parseFloat(this.place.coords[0]), 
+            longitude: parseFloat(this.place.coords[1])  
           }
         }
-        console.log(this.mapOptions)
         this.mapInstance = new Microsoft.Maps.Map(
           document.getElementById('bingMap'), 
           this.mapOptions
