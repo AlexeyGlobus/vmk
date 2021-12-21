@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePlaceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Place;
@@ -58,12 +59,19 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StorePlaceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePlaceRequest $request)
     {
-        //dump ($request->all());
+        //dump ($request);
+        $re = '/^point\(\d+\.*\d+\s\d+\.*\d+\)/';
+        return response()->json(
+            [
+                'status' => 'success',
+                'places' => []
+            ], 200
+        );
     }
 
     /**

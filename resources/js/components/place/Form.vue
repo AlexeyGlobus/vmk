@@ -22,6 +22,7 @@
             v-model="place.name"
             :label="$t('Alias')"
             required
+            :error-messages="errors.name"
           ></v-text-field>
           <v-select
             v-model="place.type"
@@ -33,12 +34,12 @@
           <v-text-field
             v-model="place.coords[0]"
             :label="$t('Latitude')"
-            required
+            :error-messages="errors.coords"
           ></v-text-field>
           <v-text-field
             v-model="place.coords[1]"
             :label="$t('Longitude')"
-            required
+            :error-messages="errors.coords"
           ></v-text-field>
 
           <v-icon
@@ -59,24 +60,29 @@
           <v-text-field
             v-model="place.owners_name"
             :label="$t('Owners name')"
+            :error-messages="errors.owners_name"
           ></v-text-field>
           <v-text-field
             v-model="place.owners_patronymic"
             :label="$t('Owners patronymic')"
+            :error-messages="errors.owners_patronymic"
           ></v-text-field>
           <v-text-field
             v-model="place.owners_surname"
             :label="$t('Owners surname')"
+            :error-messages="errors.owners_surname"
           ></v-text-field>
           <v-text-field
             v-model="place.owners_email"
             :label="$t('Owners email')"
             type="email"
+            :error-messages="errors.owners_email"
           ></v-text-field>
           <v-text-field
             v-model="place.owners_phone"
             :label="$t('Owners phone')"
             type="tel"
+            :error-messages="errors.owners_phone"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -139,6 +145,7 @@
         },
         showMap: false,
         name: 'PlaceForm',
+        errors: {},
         has_error: false,
         typesList: [
           {key: 1, name: 'Private'},
@@ -170,25 +177,30 @@
                 }
                 return response.data;
             }).then(json => {
-                //console.log(json)
+                this.errors = [];
             }).catch(error => {
-                 if (typeof error.message !== 'undefined') {
-                    this.errors.push(this.$t(error.message));
-                 }
+               if (typeof error.response === 'object') {
+                if (typeof error.response.data === 'object') {
+                  if (typeof error.response.data.errors === 'object') {
+                    //_.extend(this.errors, error.response.data.errors);
+                    this.errors = error.response.data.errors;
+                  }
+                }
+               }
             });
       },
       formatPlace() {
-        let place = this.place;
+        let place = Object.assign({}, this.place);
         if (typeof this.place.coords === 'object' 
-          && typeof this.place.coords[0] === 'number' 
-          && typeof this.place.coords[1] === 'number'
+          && typeof this.place.coords[0] !== 'undefined' 
+          && typeof this.place.coords[1] !== 'undefined'
           ) {
           place.coords = 'point(' + this.place.coords[0] + ' ' + this.place.coords[1] + ')'; 
         } else {
           place.coords = '';
         }
         return place;
-      }
+      },
     },
     created() {
       //TODO find way to avoid this

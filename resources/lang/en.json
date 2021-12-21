@@ -6,6 +6,7 @@
 	"Clear": "Clear",
 	"Close": "Close",
 	"Guest": "Guest",
+	"Hello": "Hulloa",
 	"Latitude": "Latitude",
 	"Login": "Login",
 	"Logout": "Logout",
@@ -25,5 +26,9 @@
 	"Save": "Save",
 	"Search": "Search",
 	"Select location": "Select location",
+	"The :attribute field is required": "The :attribute field is required",
+	"The :attribute format is invalid": "The :attribute format is invalid",
+	"The :attribute has already been taken": "The :attribute has already been taken",
+	"The :attribute must be a valid email address": "The :attribute must be a valid email address",
 	"Username": "User name"
 }

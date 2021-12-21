@@ -6,6 +6,7 @@
 	"Clear": "Очистить",
 	"Close": "Закрыть",
 	"Guest": "Гость",
+	"Hello": "Перевели",
 	"Latitude": "Широта",
 	"Login": "Вход",
 	"Logout": "Выход",
@@ -25,5 +26,9 @@
 	"Save": "Сохранить",
 	"Search": "Поиск",
 	"Select location": "Выбор местоположения",
+	"The :attribute field is required": "Поле :attribute обязательно для заполнения",
+	"The :attribute format is invalid": "Неверный формат поля :attribute",
+	"The :attribute has already been taken": "Такое значение для поля :attribute уже используется",
+	"The :attribute must be a valid email address": "В поле :attribute должен быть указан валидный e-mail адрес",
 	"Username": "Логин"
 }

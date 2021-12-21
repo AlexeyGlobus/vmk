@@ -57,7 +57,7 @@ export default {
         let point = new Microsoft.Maps.Location(this.place.coords[0], this.place.coords[1]);
         this.pushpinInstance = new Microsoft.Maps.Pushpin(point, {
           title: this.place.name,
-          subTitle: 'City Center',
+          subTitle: this.place.owners_surname,
           text: '1',
           visible: true
         });
@@ -68,17 +68,19 @@ export default {
   mounted() {
     setTimeout(() => {
         if (typeof this.place.coords === 'object' && !!this.place.coords[0] && !!this.place.coords[1]) {
-          this.mapOptions.center = {
+/*          this.mapOptions.center = {
             latitude: parseFloat(this.place.coords[0]), 
             longitude: parseFloat(this.place.coords[1])  
-          }
+          }*/
         }
-        this.mapInstance = new Microsoft.Maps.Map(
+        if (!this.mapInstance) {
+          this.mapInstance = new Microsoft.Maps.Map(
           document.getElementById('bingMap'), 
           this.mapOptions
-        );
+          );
+        }
         this.movePushpin();
-    }, 1200);
+    }, 1500);
   },
 }
 </script>
