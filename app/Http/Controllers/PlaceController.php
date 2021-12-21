@@ -64,12 +64,11 @@ class PlaceController extends Controller
      */
     public function store(StorePlaceRequest $request)
     {
-        //dump ($request);
-        $re = '/^point\(\d+\.*\d+\s\d+\.*\d+\)/';
+        $result = Place::create($request->all());
         return response()->json(
             [
                 'status' => 'success',
-                'places' => []
+                'place' => $result
             ], 200
         );
     }

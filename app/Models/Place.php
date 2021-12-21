@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $coords
  * @property integer $type
- * @property string $
+ * @property string $owners_name
  * @property string $owners_surname
  * @property string $owners_patronymic
  * @property string $owners_email
@@ -25,4 +25,17 @@ class Place extends Model
     const TYPE_OTHER = 3;
 
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'coords', 'type', 
+        'owners_name', 'owners_surname', 'owners_patronymic', 
+        'owners_email', 'owners_phone'
+    ];
+
+    public $timestamps = false;
 }
