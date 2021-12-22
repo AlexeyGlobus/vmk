@@ -1,36 +1,21 @@
 <template>
     <div>
-        <v-row
-        align="start"
-        justify="center"
-        class="mt-3"
-        >
-            <v-col
-              cols="12"
-              sm="12"
-              md="6"
-              lg="6"
-            >
-                <div class="headers">
+        <v-card elevation="4" class="d-flex justify-space-between mt-6 pa-4">
+            <div class="headers">
+                <div class="d-flex justify-space-between mr-2">
                     <h2>{{ place.name }}</h2>
-                    <h3 style="width: 280px;">
-                        {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
-                    </h3>
-                    <p v-if="place.owners_email">{{ place.owners_email }}</p>
-                    <p v-if="place.owners_phone">{{ place.owners_phone }}</p>
+                    <router-link :to="'/places/edit/' + place.id" :title="$t('Edit')">
+                        <v-icon>mdi-home-edit</v-icon>
+                    </router-link>
                 </div>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="12"
-                  md="6"
-                  lg="6"
-                >
-                <v-card elevation="4">
-                    <Map :place="place" v-if="locationIsReady"/>    
-                </v-card>
-            </v-col>
-        </v-row>
+                <h3 style="width: 280px;">
+                    {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
+                </h3>
+                <p v-if="place.owners_email">{{ place.owners_email }}</p>
+                <p v-if="place.owners_phone">{{ place.owners_phone }}</p>
+            </div>
+            <Map :place="place" v-if="locationIsReady"/>    
+        </v-card>
     </div>
 </template>
 

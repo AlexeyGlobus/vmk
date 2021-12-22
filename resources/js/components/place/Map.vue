@@ -67,20 +67,20 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-        if (typeof this.place.coords === 'object' && !!this.place.coords[0] && !!this.place.coords[1]) {
-/*          this.mapOptions.center = {
+/*        if (typeof this.place.coords === 'object' && !!this.place.coords[0] && !!this.place.coords[1]) {
+          this.mapOptions.center = {
             latitude: parseFloat(this.place.coords[0]), 
             longitude: parseFloat(this.place.coords[1])  
-          }*/
-        }
+          }
+        }*/
         if (!this.mapInstance) {
           this.mapInstance = new Microsoft.Maps.Map(
-          document.getElementById('bingMap'), 
-          this.mapOptions
+            document.getElementById('bingMap'), 
+            this.mapOptions
           );
         }
         this.movePushpin();
-    }, 1500);
+    }, 1000);
   },
 }
 </script>

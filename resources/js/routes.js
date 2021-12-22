@@ -55,6 +55,14 @@ export default new VueRouter({
                 auth: true
             }
         },
+        {
+            path: '/places/edit/:id',
+            name: 'PlaceEdit',
+            component: PlaceForm,
+            meta: {
+                auth: true
+            }
+        },
 /*        {
            path: '/register',
             name: 'register',

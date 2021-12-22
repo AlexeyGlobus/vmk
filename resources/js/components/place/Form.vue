@@ -107,7 +107,7 @@
           </v-card-title>
 
           <v-card-text>
-                      <Map :place="place" v-if="true"/>
+            <Map :place="place"/>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -203,6 +203,44 @@
       },
     },
     created() {
+      if( typeof this.$route.params.id !== 'undefined') {
+        console.log('123');
+        axios
+          .get('/places/' + this.$router.currentRoute.params.id )
+          .then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    let error = new Error(response.statusText);
+                    error.response = response;
+                    throw error
+                }
+            }).then(response => {
+                if (response.headers['content-type'] !== 'application/json') {
+                    let error = new Error('Некорректный ответ от сервера');
+                    error.response = response;
+                    throw error
+                }
+                return response.data;
+            }).then(json => {
+                if (typeof json.place === 'object') {
+                    this.place = json.place;
+                    if (!!this.place.coords.length) {
+                        let coords = this.place.coords.match(/\d+\.*\d*/g);
+                        coords.forEach((x, i) => {
+                            coords[i] = parseFloat(x);
+                        });
+                        this.place.coords = coords;
+                    } else {
+                        this.place.coords = [];
+                    }
+                }
+            }).catch(error => {
+                 if (typeof error.message !== 'undefined') {
+                    this.errors.push(this.$t(error.message));
+                 }
+            });
+      }
       //TODO find way to avoid this
       this.typesList.forEach((type, i) => {
         type.name = this.$t(type.name);

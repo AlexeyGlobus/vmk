@@ -1,8 +1,15 @@
 <template>
     <div>
-    	<h1 v-if="$auth.check()">
-            {{ $t('Boathouses') + ' ' + filteredPlacesCount + ' ' + $t('of') + ' ' + placesCount }}
-        </h1>
+        <div class="d-flex justify-space-between mr-2">
+        	<h1 v-if="$auth.check()">
+                {{ $t('Boathouses') + ' ' + filteredPlacesCount + ' ' + $t('of') + ' ' + placesCount }}
+            </h1>
+            <div v-if="$auth.user().role === 1">
+                <router-link to="/places/create">
+                    <v-icon :title="$t('Add place')">mdi-home-plus</v-icon>
+                </router-link>
+            </div>
+        </div>
           <v-text-field
             :label="$t('Search')"
             v-model="placesSearch"
