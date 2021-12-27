@@ -61,42 +61,17 @@
             }
         },
         mounted() {
-            axios
-              .get('/places')
-              .then(response => {
-                if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        let error = new Error(response.statusText);
-                        error.response = response;
-                        throw error
-                    }
-                }).then(response => {
-                    if (response.headers['content-type'] !== 'application/json') {
-                        let error = new Error('Некорректный ответ от сервера');
-                        error.response = response;
-                        throw error
-                    }
-                    return response.data;
-                }).then(json => {
-                    if (typeof json.places === 'object') {
-                        this.places = json.places;
-                    }
-                }).catch(error => {
-                     if (typeof error.message !== 'undefined') {
-                        this.errors.push(this.$t(error.message));
-                     }
-                });
+            this.$store.dispatch('placesAll');
         },
         computed: {
             placesCount() {
-                return this.places.length;
+                return this.$store.state.places.all.length;
             },
             filteredPlaces() {
-                return this.places.filter(place => {
-                    return (place.name.indexOf(this.placesSearch) !== -1) ||
-                    (place.owners_name.indexOf(this.placesSearch) !== -1) ||
-                    (place.owners_surname.indexOf(this.placesSearch) !== -1);
+                return this.$store.state.places.all.filter(place => {
+                    return (!!place.name && place.name.indexOf(this.placesSearch) !== -1) ||
+                    (!!place.owners_name && place.owners_name.indexOf(this.placesSearch) !== -1) ||
+                    (!!place.owners_surname && place.owners_surname.indexOf(this.placesSearch) !== -1);
                 })
             },
             filteredPlacesCount() {

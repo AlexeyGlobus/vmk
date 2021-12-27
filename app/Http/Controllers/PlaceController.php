@@ -33,7 +33,10 @@ class PlaceController extends Controller
                 type,
                 owners_name,
                 owners_surname,
-                owners_patronymic
+                owners_patronymic,
+                owners_email,
+                owners_phone,
+                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords
                 ')
             )
         ->orderBy('name', 'asc')

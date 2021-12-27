@@ -204,7 +204,6 @@
     },
     created() {
       if( typeof this.$route.params.id !== 'undefined') {
-        console.log('123');
         axios
           .get('/places/' + this.$router.currentRoute.params.id )
           .then(response => {

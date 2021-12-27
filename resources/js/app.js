@@ -2,6 +2,7 @@ import 'es6-promise/auto';
 import axios from 'axios';
 import './bootstrap';
 import Vue from 'vue';
+import store from './store';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
@@ -16,13 +17,13 @@ import router from './routes';
 import vuetify from './plugins/vuetify';
 
 // Set Vue globally
-window.Vue = Vue
+window.Vue = Vue;
 // Set Vue router
-Vue.router = router
-Vue.use(VueRouter)
+Vue.router = router;
+Vue.use(VueRouter);
 // Set Vue authentication
-Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+Vue.use(VueAxios, axios);
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`;
 
 Vue.use(VueI18n);
 
@@ -71,5 +72,6 @@ new Vue({
     router,
     vuetify,
     i18n,
+    store,
     render: h => h(App)
 }).$mount('#app');
