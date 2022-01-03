@@ -1,6 +1,6 @@
 export default {
 	state: {
-		httpErrors: []
+		httpErrors: [],
 	},
 	mutations: {
 		setHttpErrors(state, payload) {
@@ -8,7 +8,7 @@ export default {
 		}
 	},
 	actions: {
-		httpRequest(context, payload) {
+		async httpRequest(context, payload) {
 			if (typeof payload === 'object') {
 				let url = payload.url;
 				let method = payload.method;
@@ -16,29 +16,31 @@ export default {
 				let mutation = payload.mutation;
 				if (typeof url === 'string' && url.length && 
 					typeof method === 'string' && method.length &&
-					typeof method === 'string' && method.length) {
-					axios({method, url,data})
+					typeof method === 'string' && method.length) {		
+					return axios({method, url,data})
               		.then(response => {
 		                if (response.status >= 200 && response.status < 300) {
+		                			                  
 		                        return response;
 		                    } else {
 		                        let error = new Error(response.statusText);
 		                        error.response = response;
 		                        throw error
 		                    }
-		                }).then(response => {
+		                }).then(response => {		                			                  
 		                    if (response.headers['content-type'] !== 'application/json') {
 		                        let error = new Error('Некорректный ответ от сервера');
 		                        error.response = response;
 		                        throw error
 		                    }
+		                 
 		                    return response.data;
-		                }).then(json => {
+		                }).then(json => {		              
 		                	context.commit(mutation, json);
 		                }).catch(error => {
 		                     if (typeof error.message !== 'undefined') {
 		                        context.commit('setHttpErrors', error.message);
-		                     }
+		                     }		                  
 		                });
 		        	}
 				}	

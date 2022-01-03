@@ -29,7 +29,7 @@ class StorePlaceRequest extends FormRequest
             'owners_email' => 'email:rfc,dns|unique:places,owners_email|nullable',
             'owners_phone' => 'regex:/^\+*\d{10,11}?$/|unique:places,owners_phone|nullable',
             'owners_name' => 'regex:' . $charsRe . '|nullable',
-            'owners_surname' => 'regex:' . $charsRe . '|nullable',
+            'owners_surname' => 'required|regex:' . $charsRe . '|nullable',
             'owners_patronymic' => 'regex:' . $charsRe . '|nullable',
         ];
     }

@@ -10,8 +10,8 @@ export default {
 		}
 	},
 	actions: {
-		placesAll(context, payload) {
-			context.dispatch('httpRequest', {
+		async placesAll(context, payload) {
+			return context.dispatch('httpRequest', {
 				url: '/places',
 				method: 'GET',
 				mutation: 'getPlaces'
@@ -19,6 +19,14 @@ export default {
 		}
 	},
 	getters: {
-
+		placeById: state => id => {
+			if(typeof state.all === 'object' && !!state.all.length) {
+				return state.all.find(place => {
+					return place.id == id
+				})
+			} else {
+				return null;
+			}
+		}
 	}	
 }
