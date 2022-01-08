@@ -120,13 +120,19 @@ class PlaceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StorePlaceRequest  $request
      * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Place $place)
+    public function update(StorePlaceRequest $request, Place $place)
     {
-        //
+        $result = Place::whereId($request->id)->update($request->all());
+        return response()->json(
+            [
+                'status' => 'success',
+                'place' => Place::find($request->id)
+            ], 200
+        );
     }
 
     /**

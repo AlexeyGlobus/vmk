@@ -3,7 +3,7 @@
         <v-card elevation="4" class="d-flex justify-space-between mt-6 pa-4">
             <div class="headers">
                 <div class="d-flex justify-space-between mr-2">
-                    <h2>{{ place.name }}</h2>
+                    <h2>{{ place.name }}</h2><p>{{ place.id }}</p>
                     <router-link :to="'/places/edit/' + place.id" :title="$t('Edit')">
                         <v-icon>mdi-home-edit</v-icon>
                     </router-link>
@@ -36,15 +36,6 @@
         created() {
             this.currentPlace().then((result) => {
                 this.place = result;
-                if (!!this.place.coords.length) {
-                    let coords = this.place.coords.match(/\d+\.*\d*/g);
-                    coords.forEach((x, i) => {
-                    coords[i] = parseFloat(x);
-                });
-                    this.place.coords = coords;
-                } else {
-                    this.place.coords = [];
-                }
             });
         },
         computed: {

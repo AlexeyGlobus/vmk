@@ -40,7 +40,7 @@ export default new VueRouter({
             component: Login
         },
         {
-            path: '/place/:id',
+            path: '/places/:id(\\d+)',
             name: 'PlaceView',
             component: PlaceView,
             meta: {
@@ -49,7 +49,7 @@ export default new VueRouter({
         },
         {
             path: '/places/create',
-            name: 'PlaceForm',
+            name: 'PlaceAdd',
             component: PlaceForm,
             meta: {
                 auth: true

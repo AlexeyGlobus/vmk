@@ -1,10 +1,18 @@
 export default {
 	state: {
-		httpErrors: [],
+		httpErrors: {},
 	},
 	mutations: {
 		setHttpErrors(state, payload) {
-			state.httpErrors.push(this.$t(payload));
+			if (typeof payload === 'object') {
+				state.httpErrors = payload;
+			}
+			if (typeof payload === 'string') {
+				if (state.httpErrors.generic === 'undefined') {
+					state.httpErrors.generic = []
+				}
+				state.httpErrors.generic.push(payload)
+			}			
 		}
 	},
 	actions: {
@@ -16,11 +24,11 @@ export default {
 				let mutation = payload.mutation;
 				if (typeof url === 'string' && url.length && 
 					typeof method === 'string' && method.length &&
-					typeof method === 'string' && method.length) {		
-					return axios({method, url,data})
+					typeof method === 'string' && method.length) {
+					context.state.httpErrors = {};	
+					return axios({method, url, data})
               		.then(response => {
-		                if (response.status >= 200 && response.status < 300) {
-		                			                  
+		                if (response.status >= 200 && response.status < 300) {		                			                  
 		                        return response;
 		                    } else {
 		                        let error = new Error(response.statusText);
@@ -35,12 +43,22 @@ export default {
 		                    }
 		                 
 		                    return response.data;
-		                }).then(json => {		              
-		                	context.commit(mutation, json);
+		                }).then(json => {
+			                if (!!mutation) {
+			                	context.commit(mutation, json);
+			                }		              	
 		                }).catch(error => {
-		                     if (typeof error.message !== 'undefined') {
-		                        context.commit('setHttpErrors', error.message);
-		                     }		                  
+        	               if (typeof error.response === 'object') {
+			                if (typeof error.response.data === 'object') {
+			                  if (typeof error.response.data.errors === 'object') {
+			                    context.commit('setHttpErrors', error.response.data.errors);
+			                  }
+			                }
+			               } else {
+			               	if (typeof error.message !== 'undefined') {
+		                       context.commit('setHttpErrors', error.message);
+		                    }
+		                   }		                     		                  
 		                });
 		        	}
 				}	

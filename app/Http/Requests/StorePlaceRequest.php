@@ -24,10 +24,10 @@ class StorePlaceRequest extends FormRequest
     {
         $charsRe = '/^[a-zA-ZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯ]+$/';
         return [
-            'name' => 'required|unique:places|max:255',
+            'name' => 'required|max:255|unique:places,name,' . ($this->id ?? 0),
             'coords' => 'regex:/^point\(\d+\.*\d+\s\d+\.*\d+\)/|nullable',
-            'owners_email' => 'email:rfc,dns|unique:places,owners_email|nullable',
-            'owners_phone' => 'regex:/^\+*\d{10,11}?$/|unique:places,owners_phone|nullable',
+            'owners_email' => 'email:rfc,dns|nullable|unique:places,owners_email,' . ($this->id ?? 0),
+            'owners_phone' => 'regex:/^\+*\d{10,11}?$/|nullable|unique:places,owners_phone,' . ($this->id ?? 0),
             'owners_name' => 'regex:' . $charsRe . '|nullable',
             'owners_surname' => 'required|regex:' . $charsRe . '|nullable',
             'owners_patronymic' => 'regex:' . $charsRe . '|nullable',

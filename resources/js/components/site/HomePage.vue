@@ -15,9 +15,9 @@
             v-model="placesSearch"
             append-icon="mdi-magnify"
           ></v-text-field>	
-        <div v-if="!!placesCount" style="display: flex;flex-direction: row;">
+        <div v-if="!!placesCount" style="display: flex;flex-direction: row;flex-wrap: wrap;">
           <v-card
-            :to="'/place/' + place.id"
+            :to="'/places/' + place.id"
             class="ma-3"
             max-width="344"
             outlined

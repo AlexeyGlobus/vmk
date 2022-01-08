@@ -7,7 +7,7 @@
         </v-col>
       </v-row>
     </v-alert>
-    <v-form ref="place_form" id="place_form" @keyup.native.enter.prevent.stop="save">
+    <v-form ref="place_form" id="place_form" @keyup.native.enter.prevent.stop="save" v-if="!!place">
       <v-row
         align="start"
         justify="center"
@@ -157,37 +157,35 @@
     components: {
       Map
     },
+    created() {
+      if( typeof this.$route.params.id !== 'undefined') {
+        this.place = this.$store.getters.placeById(this.$route.params.id);
+        if (!this.place) {
+          this.$store.dispatch('placesAll').then(() => {
+            this.place = this.$store.getters.placeById(this.$route.params.id);
+          });
+        }
+      }
+      //TODO find way to avoid this
+      this.typesList.forEach((type, i) => {
+        type.name = this.$t(type.name);
+      });
+    },
     methods: {
-      save(e) {
-        axios
-          .post('/places', this.formatPlace())
-          .then(response => {
-            if (response.status >= 200 && response.status < 300) {
-                    return response;
-                } else {
-                    let error = new Error(response.statusText);
-                    error.response = response;
-                    throw error
-                }
-            }).then(response => {
-                if (response.headers['content-type'] !== 'application/json') {
-                    let error = new Error('Некорректный ответ от сервера');
-                    error.response = response;
-                    throw error
-                }
-                return response.data;
-            }).then(json => {
-                this.errors = [];
-            }).catch(error => {
-               if (typeof error.response === 'object') {
-                if (typeof error.response.data === 'object') {
-                  if (typeof error.response.data.errors === 'object') {
-                    //_.extend(this.errors, error.response.data.errors);
-                    this.errors = error.response.data.errors;
-                  }
-                }
-               }
-            });
+      save() {
+        this.$store.state.places.current = {};
+        this.$store.dispatch('httpRequest', {
+          url: this.formUrl,
+          method: this.formMethod,
+          data: this.formatPlace(),
+          mutation: 'updatePlaces'
+        }).then(() => {
+          this.errors = this.$store.state.http.httpErrors;
+          let id = this.$store.getters.currentId;
+          if (!!id && !isNaN(id)) {
+            this.$router.push('/places/' + id);
+          }
+        });
       },
       formatPlace() {
         let place = Object.assign({}, this.place);
@@ -202,48 +200,21 @@
         return place;
       },
     },
-    created() {
-      if( typeof this.$route.params.id !== 'undefined') {
-        axios
-          .get('/places/' + this.$router.currentRoute.params.id )
-          .then(response => {
-            if (response.status >= 200 && response.status < 300) {
-                    return response;
-                } else {
-                    let error = new Error(response.statusText);
-                    error.response = response;
-                    throw error
-                }
-            }).then(response => {
-                if (response.headers['content-type'] !== 'application/json') {
-                    let error = new Error('Некорректный ответ от сервера');
-                    error.response = response;
-                    throw error
-                }
-                return response.data;
-            }).then(json => {
-                if (typeof json.place === 'object') {
-                    this.place = json.place;
-                    if (!!this.place.coords.length) {
-                        let coords = this.place.coords.match(/\d+\.*\d*/g);
-                        coords.forEach((x, i) => {
-                            coords[i] = parseFloat(x);
-                        });
-                        this.place.coords = coords;
-                    } else {
-                        this.place.coords = [];
-                    }
-                }
-            }).catch(error => {
-                 if (typeof error.message !== 'undefined') {
-                    this.errors.push(this.$t(error.message));
-                 }
-            });
+    computed: {
+      formMethod() {
+        if (this.$route.name === 'PlaceEdit') {
+          return 'PUT';
+        } else {
+          return 'POST';
+        }
+      },
+      formUrl() {
+        let url = '/places';
+        if (this.$route.name === 'PlaceEdit') {
+          url += '/' + this.$route.params.id;
+        }
+        return url;
       }
-      //TODO find way to avoid this
-      this.typesList.forEach((type, i) => {
-        type.name = this.$t(type.name);
-      });
     }
   }
   </script>
