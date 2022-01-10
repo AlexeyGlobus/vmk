@@ -31,6 +31,7 @@ class StorePlaceRequest extends FormRequest
             'owners_name' => 'regex:' . $charsRe . '|nullable',
             'owners_surname' => 'required|regex:' . $charsRe . '|nullable',
             'owners_patronymic' => 'regex:' . $charsRe . '|nullable',
+            'comments' => 'string|nullable'
         ];
     }
 
@@ -40,7 +41,8 @@ class StorePlaceRequest extends FormRequest
             'regex' => __('The :attribute format is invalid'),
             'email' => __('The :attribute must be a valid email address'),
             'required' => __('The :attribute field is required'),
-            'unique' => __('The :attribute has already been taken')
+            'unique' => __('The :attribute has already been taken'),
+            'string' => __('The :attribute must be a text string')
         ];
     }
 }

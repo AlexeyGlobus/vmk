@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $owners_patronymic
  * @property string $owners_email
  * @property string $owners_phone
+ * @property string $comments
  */
 class Place extends Model
 {
@@ -34,7 +35,7 @@ class Place extends Model
     protected $fillable = [
         'name', 'coords', 'type', 
         'owners_name', 'owners_surname', 'owners_patronymic', 
-        'owners_email', 'owners_phone'
+        'owners_email', 'owners_phone', 'comments'
     ];
 
     public $timestamps = false;

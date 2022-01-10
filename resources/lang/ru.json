@@ -6,6 +6,7 @@
 	"Business": "Служебное",
 	"Clear": "Очистить",
 	"Close": "Закрыть",
+	"Comments": "Комментарии",
 	"Edit": "Редактировать",
 	"Guest": "Гость",
 	"Hello": "Перевели",
@@ -32,6 +33,7 @@
 	"The :attribute field is required": "Поле :attribute обязательно для заполнения",
 	"The :attribute format is invalid": "Неверный формат поля :attribute",
 	"The :attribute has already been taken": "Такое значение для поля :attribute уже используется",
+	"The :attribute must be a text string": "Формат поля :attribute - текст",
 	"The :attribute must be a valid email address": "В поле :attribute должен быть указан валидный e-mail адрес",
 	"Username": "Логин"
 }

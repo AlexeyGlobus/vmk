@@ -16,6 +16,7 @@
                 </h3>
                 <p v-if="place.owners_email">{{ place.owners_email }}</p>
                 <p v-if="place.owners_phone">{{ place.owners_phone }}</p>
+                <p v-if="place.comments">{{ place.comments }}</p>
             </div>
             <Map :place="place" v-if="locationIsReady"/>    
         </v-card>

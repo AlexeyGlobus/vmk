@@ -36,7 +36,8 @@ class PlaceController extends Controller
                 owners_patronymic,
                 owners_email,
                 owners_phone,
-                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords
+                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords,
+                comments
                 ')
             )
         ->orderBy('name', 'asc')
@@ -94,7 +95,8 @@ class PlaceController extends Controller
                 owners_patronymic,
                 owners_email,
                 owners_phone,
-                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords
+                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords,
+                comments
                 ')
             )->where('id', '=', $place->id)
         ->first();

@@ -84,6 +84,12 @@
             type="tel"
             :error-messages="errors.owners_phone"
           ></v-text-field>
+          <v-textarea
+            v-model="place.comments"
+            :label="$t('Comments')"
+            rows="2"
+            :error-messages="errors.comments"
+          ></v-textarea>
         </v-col>
       </v-row>
 
@@ -141,7 +147,8 @@
           owners_surname: '',
           owners_email: '',
           owners_phone: '',
-          coords: []
+          coords: [],
+          comments: ''
         },
         showMap: false,
         name: 'PlaceForm',

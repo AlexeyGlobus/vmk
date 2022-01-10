@@ -6,6 +6,7 @@
 	"Business": "Business",
 	"Clear": "Clear",
 	"Close": "Close",
+	"Comments": "Comments",
 	"Edit": "Edit",
 	"Guest": "Guest",
 	"Hello": "Hulloa",
@@ -32,6 +33,7 @@
 	"The :attribute field is required": "The :attribute field is required",
 	"The :attribute format is invalid": "The :attribute format is invalid",
 	"The :attribute has already been taken": "The :attribute has already been taken",
+	"The :attribute must be a text string": "The :attribute must be a text string",
 	"The :attribute must be a valid email address": "The :attribute must be a valid email address",
 	"Username": "User name"
 }
