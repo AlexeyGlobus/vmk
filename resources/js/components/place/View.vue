@@ -7,6 +7,9 @@
                     <router-link :to="'/places/edit/' + place.id" :title="$t('Edit')">
                         <v-icon>mdi-home-edit</v-icon>
                     </router-link>
+                    <a href="#" @click.prevent="deleteCurrent">
+                        <v-icon>mdi-delete</v-icon>
+                    </a>
                 </div>
                 <h3 style="width: 280px;">
                     {{ place.owners_name }} {{ place.owners_patronymic }} {{ place.owners_surname }}
@@ -53,6 +56,23 @@
                     result = this.$store.getters.placeById(this.$route.params.id); 
                 }
                 return result;
+            },
+            deleteCurrent() {
+                if (typeof this.place.id !== undefined && !isNaN(this.place.id)) {
+                    this.$confirm(this.$t('Please confirm deletion')).then(res => {
+                        if(res) {
+                            this.$store.dispatch('httpRequest', {
+                                url: '/places/' + this.place.id,
+                                method: 'DELETE',
+                                data: this.place,
+                                mutation: 'updatePlaces'
+                            }).then(() => {
+                                this.errors = this.$store.state.http.httpErrors;
+                                this.$router.push('/');
+                            });
+                        }
+                    });
+                }
             }
         }
     }

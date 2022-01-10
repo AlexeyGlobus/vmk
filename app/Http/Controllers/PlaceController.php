@@ -143,6 +143,14 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-        //
+        $result = 0;
+        $status = 'error';
+        if (!empty($place->id)) {
+            $result = Place::find($place->id)->delete();
+            $status = 'success';
+        }
+        return response()->json(
+            compact('status', 'result'), 200
+        );
     }
 }

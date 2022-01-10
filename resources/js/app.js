@@ -15,6 +15,7 @@ import driverRouterVueRouter from '@websanova/vue-auth/dist/drivers/router/vue-r
 
 import router from './routes';
 import vuetify from './plugins/vuetify';
+import VuetifyConfirm from 'vuetify-confirm';
 
 // Set Vue globally
 window.Vue = Vue;
@@ -26,6 +27,8 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`;
 
 Vue.use(VueI18n);
+
+Vue.use(VuetifyConfirm, { vuetify });
 
 const messagesEn = require('../lang/en.json');
 const messagesRu = require('../lang/ru.json');

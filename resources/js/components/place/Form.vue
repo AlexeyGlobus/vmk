@@ -192,6 +192,8 @@
         if (typeof this.place.coords === 'object' 
           && typeof this.place.coords[0] !== 'undefined' 
           && typeof this.place.coords[1] !== 'undefined'
+          && !!this.place.coords[0] 
+          && !!this.place.coords[1]
           ) {
           place.coords = 'point(' + this.place.coords[0] + ' ' + this.place.coords[1] + ')'; 
         } else {
