@@ -7,7 +7,11 @@
         </v-col>
       </v-row>
     </v-alert>
-    <v-form ref="place_form" id="place_form" @keyup.native.enter.prevent.stop="save" v-if="!!place">
+    <v-form ref="place_form" 
+      id="place_form" 
+      @keyup.native.enter.prevent.stop="save" 
+      v-if="isReady"
+    >
       <v-row
         align="start"
         justify="center"
@@ -167,7 +171,7 @@
     created() {
       if( typeof this.$route.params.id !== 'undefined') {
         this.place = this.$store.getters.placeById(this.$route.params.id);
-        if (!this.place) {
+        if (_.isEmpty(this.place)) {
           this.$store.dispatch('placesAll').then(() => {
             this.place = this.$store.getters.placeById(this.$route.params.id);
           });
@@ -185,7 +189,7 @@
           url: this.formUrl,
           method: this.formMethod,
           data: this.formatPlace(),
-          mutation: 'updatePlaces'
+          mutation: 'getPlaces'
         }).then(() => {
           this.errors = this.$store.state.http.httpErrors;
           let id = this.$store.getters.currentId;
@@ -223,6 +227,9 @@
           url += '/' + this.$route.params.id;
         }
         return url;
+      },
+      isReady() {
+        return ! _.isEmpty(this.place);
       }
     }
   }

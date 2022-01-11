@@ -66,7 +66,7 @@
                                 url: '/places/' + this.place.id,
                                 method: 'DELETE',
                                 data: this.place,
-                                mutation: 'updatePlaces'
+                                mutation: 'getPlaces'
                             }).then(() => {
                                 this.errors = this.$store.state.http.httpErrors;
                                 this.$router.push('/');

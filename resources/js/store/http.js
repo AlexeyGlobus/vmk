@@ -8,7 +8,7 @@ export default {
 				state.httpErrors = payload;
 			}
 			if (typeof payload === 'string') {
-				if (state.httpErrors.generic === 'undefined') {
+				if (typeof state.httpErrors.generic === 'undefined') {
 					state.httpErrors.generic = []
 				}
 				state.httpErrors.generic.push(payload)

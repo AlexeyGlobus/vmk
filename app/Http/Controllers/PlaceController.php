@@ -26,26 +26,10 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = DB::table('places')
-            ->select(DB::raw('
-                id,
-                name,
-                type,
-                owners_name,
-                owners_surname,
-                owners_patronymic,
-                owners_email,
-                owners_phone,
-                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords,
-                comments
-                ')
-            )
-        ->orderBy('name', 'asc')
-        ->get();
         return response()->json(
             [
                 'status' => 'success',
-                'places' => $places->toArray()
+                'places' => $this->getAll()
             ], 200
         );
     }
@@ -72,7 +56,8 @@ class PlaceController extends Controller
         return response()->json(
             [
                 'status' => 'success',
-                'place' => $result
+                'places' => $this->getAll(),
+                'current' => $result
             ], 200
         );
     }
@@ -132,7 +117,8 @@ class PlaceController extends Controller
         return response()->json(
             [
                 'status' => 'success',
-                'place' => Place::find($request->id)
+                'places' => $this->getAll(),
+                'current' => Place::find($request->id)
             ], 200
         );
     }
@@ -147,12 +133,42 @@ class PlaceController extends Controller
     {
         $result = 0;
         $status = 'error';
+        $code = 422;
         if (!empty($place->id)) {
             $result = Place::find($place->id)->delete();
             $status = 'success';
+            $code = 200;
         }
         return response()->json(
-            compact('status', 'result'), 200
+            compact('status', 'result'), $code
         );
+    }
+
+    /**
+     * @return \App\Models\Place[]
+     */
+    protected function getAll()
+    {
+        $all = DB::table('places')
+            ->select(DB::raw('
+                id,
+                name,
+                type,
+                owners_name,
+                owners_surname,
+                owners_patronymic,
+                owners_email,
+                owners_phone,
+                (ST_X(ST_AsText(coords)),ST_Y(ST_AsText(coords))) as coords,
+                comments
+                ')
+            )
+        ->orderBy('name', 'asc')
+        ->get();
+        if(!empty($all)) {
+            return $all->toArray();
+        } else {
+            return [];
+        }
     }
 }
