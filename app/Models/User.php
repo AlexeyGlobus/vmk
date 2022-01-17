@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use League\CommonMark\Node\Node;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Facades\DB;
 
 /**
  * User model
@@ -73,5 +74,16 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() :array
     {
         return [];
+    }
+
+    /**
+     * Get user's access rights.
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accessRights() : \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AccessRight::class,  'role', 'role');
+
     }
 }
