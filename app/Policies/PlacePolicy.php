@@ -19,7 +19,7 @@ class PlacePolicy
      */
     public function viewAny(User $user)
     {
-        return !!$user->id
+        return $user->can('read-places')
             ? Response::allow()
             : Response::deny('Log in required');
     }
@@ -33,7 +33,7 @@ class PlacePolicy
      */
     public function view(User $user, Place $place)
     {
-        return !!$user->id
+        return $user->can('read-places')
             ? Response::allow()
             : Response::deny('Log in required');
     }
@@ -46,7 +46,7 @@ class PlacePolicy
      */
     public function create(User $user)
     {
-        return $user->role === User::ROLE_ADMIN
+        return $user->can('create-places')
             ? Response::allow()
             : Response::deny('Only administrator can do this');
     }
@@ -60,7 +60,7 @@ class PlacePolicy
      */
     public function update(User $user, Place $place)
     {
-        return $user->role === User::ROLE_ADMIN
+        return $user->can('update-places')
             ? Response::allow()
             : Response::deny('Only administrator can do this');
     }
@@ -74,7 +74,7 @@ class PlacePolicy
      */
     public function delete(User $user, Place $place)
     {
-        return $user->role === User::ROLE_ADMIN
+        return $user->can('delete-places')
             ? Response::allow()
             : Response::deny('Only administrator can do this');
     }
@@ -88,7 +88,7 @@ class PlacePolicy
      */
     public function restore(User $user, Place $place)
     {
-        return $user->role === User::ROLE_ADMIN
+        return $user->can('update-places')
             ? Response::allow()
             : Response::deny('Only administrator can do this');
     }
@@ -102,7 +102,7 @@ class PlacePolicy
      */
     public function forceDelete(User $user, Place $place)
     {
-        return $user->role === User::ROLE_ADMIN
+        return $user->can('delete-places')
             ? Response::allow()
             : Response::deny('Only administrator can do this');
     }
