@@ -86,4 +86,22 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(AccessRight::class,  'role', 'role');
 
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function can ($abilities, $arguments = []) :bool
+    {
+        $result = false;
+        $splitted = explode('-', $abilities);
+        if (is_array($splitted) && count($splitted) === 2) {
+            //$rights = $this->accessRights()->where('table_name', '=', $splitted[1])->first();
+            $rights = AccessRight::where([
+                ['role', '=', $this->role],
+                ['table_name', '=', $splitted[1]]
+            ])->first();
+            $result = $rights->check($splitted[0]);
+        }
+        return $result;
+    }
 }
