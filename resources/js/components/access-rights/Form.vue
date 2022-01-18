@@ -17,6 +17,9 @@
 				table_name: 'access_rights'
 			}
 		},
+        mounted() {
+            this.$store.dispatch('accessRightsAll');
+        },
 		computed: {
 			canEdit() {
 				return true;

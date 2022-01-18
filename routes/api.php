@@ -30,6 +30,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::apiResource('places',PlaceController::class);
+Route::apiResource('access-rights',AccessRightController::class);
 
 Route::group(['middleware' => 'auth:api'], function(){
     // Users

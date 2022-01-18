@@ -5,6 +5,18 @@ export default {
 	mutations: {
 		setUser(state, payload) {
 			state.user = payload;
+		},
+		setAccessRights(state, payload) {
+
+		}
+	},
+	actions: {
+		async accessRightsAll(context, payload) {
+			return context.dispatch('httpRequest', {
+				url: '/access-rights',
+				method: 'GET',
+				mutation: 'setAccessRights'
+			});
 		}
 	},
 	getters: {
