@@ -100,7 +100,9 @@
           return links;
         },
         _user() {
-            return this.$auth.user() || {};
+          let user = this.$auth.user() || {};
+          this.$store.commit('setUser', user);
+          return user;
         },
         username() {
           if (typeof this._user.username === 'string') {
@@ -109,8 +111,6 @@
             return this.$t('Guest');
           }
         }
-      },
-      created() {
       }
   }
 </script>

@@ -31,12 +31,11 @@ class AccessRight extends Model
      */
     public function getRightsAttribute(int $value) :array
     {
-        $bin = decbin($value);
         return [
-            self::CREATE_RIGHT => !!$bin[3],
-            self::READ_RIGHT   => !!$bin[2],
-            self::UPDATE_RIGHT => !!$bin[1],
-            self::DELETE_RIGHT => !!$bin[0]
+            self::CREATE_RIGHT => !!($value & 1),
+            self::READ_RIGHT   => !!($value & 2),
+            self::UPDATE_RIGHT => !!($value & 4),
+            self::DELETE_RIGHT => !!($value & 8)
         ];
     }
 

@@ -1,13 +1,25 @@
 <template>
     <div>
-        <v-card elevation="4" class="d-flex justify-space-between mt-6 pa-4">
+        <v-card 
+            elevation="4" 
+            class="d-flex justify-space-between mt-6 pa-4"
+            v-if="$store.getters.userCan('read-' + table_name)"
+        >
             <div class="headers">
                 <div class="d-flex justify-space-between mr-2">
-                    <h2>{{ place.name }}</h2><p>{{ place.id }}</p>
-                    <router-link :to="'/places/edit/' + place.id" :title="$t('Edit')">
+                    <h2>{{ place.name }}</h2>
+                    <router-link 
+                        :to="'/places/edit/' + place.id" 
+                        :title="$t('Edit') + ' ' + place.name" 
+                        v-if="this.$store.getters.userCan('update-' + table_name)"
+                    >
                         <v-icon>mdi-home-edit</v-icon>
                     </router-link>
-                    <a href="#" @click.prevent="deleteCurrent">
+                    <a href="#" 
+                        @click.prevent="deleteCurrent"
+                        v-if="this.$store.getters.userCan('delete-' + table_name)"
+                        :title="$t('Delete') + ' ' + place.name"
+                    >
                         <v-icon>mdi-delete</v-icon>
                     </a>
                 </div>
@@ -20,6 +32,7 @@
             </div>
             <Map :place="place" v-if="locationIsReady"/>    
         </v-card>
+        <h3 v-else>{{ $t('403 Access denied') }}</h3>
     </div>
 </template>
 
@@ -28,7 +41,7 @@
     export default {
         data: function () {
             return {
-                name: 'PlaceView',
+                table_name: 'places',
                 place: {},
                 errors: []
             }
@@ -52,7 +65,7 @@
         methods: {
             async currentPlace() {
                 let result = this.$store.getters.placeById(this.$route.params.id);
-                if (!result) {
+                if (_.isEmpty(result)) {
                     await this.$store.dispatch('placesAll');
                     result = this.$store.getters.placeById(this.$route.params.id); 
                 }
