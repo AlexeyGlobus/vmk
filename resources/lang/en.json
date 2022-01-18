@@ -1,5 +1,6 @@
 {
 	"403 Access denied": "403 Access denied",
+	"Access": "Access",
 	"Add place": "Add place",
 	"Alias": "Alias",
 	"Boathouse": "Boathouse",
@@ -11,7 +12,7 @@
 	"Delete": "Delete",
 	"Edit": "Edit",
 	"Guest": "Guest",
-	"Hello": "Hulloa",
+	"Home": "Home",
 	"Latitude": "Latitude",
 	"Login": "Login",
 	"Logout": "Logout",

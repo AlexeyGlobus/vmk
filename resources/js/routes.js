@@ -16,13 +16,7 @@ import HomePage from './components/site/HomePage.vue';
 import Login from './components/site/Login.vue';
 import PlaceView from './components/place/View.vue';
 import PlaceForm from './components/place/Form.vue';
-
-/*import Bulletin from './components/Bulletins/Bulletin.vue'
-import Create from './components/Bulletins/Create.vue'
-import List from './components/Bulletins/List.vue'
-import Login from './components/Auth/Login.vue'
-import Register from './components/Auth/Register.vue'
-import Orders from './components/User/Orders.vue'*/
+import AccessRightsForm from './components/access-rights/Form.vue';
 
 export default new VueRouter({
     routes: [
@@ -59,6 +53,14 @@ export default new VueRouter({
             path: '/places/edit/:id',
             name: 'PlaceEdit',
             component: PlaceForm,
+            meta: {
+                auth: true
+            }
+        },
+        {
+            path: '/access-rights',
+            name: 'AccessRights',
+            component: AccessRightsForm,
             meta: {
                 auth: true
             }

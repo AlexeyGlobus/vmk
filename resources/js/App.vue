@@ -53,7 +53,7 @@
               :key=""
               @click.prevent="$auth.logout({makeRequest: true,redirect: {name: 'login'}})"
               exact>
-              LOGOUT
+              {{ $t('Logout') }}
             </v-tab>
           </v-tabs>
         </template>
@@ -92,10 +92,10 @@
         links() {
           let links = [];
           if (this.$auth.check()) {
-            links.push({title: 'Home', icon: 'mdi-home', url: '/'});
-            links.push({title: 'Orders', icon: 'shop', url: '/orders'});
+            links.push({title: this.$t('Home'), url: '/'});
+            links.push({title: this.$t('Access'), url: '/access-rights'});
           } else {
-            links.push({title: 'Login', icon: 'mdi-lock', url: '/login'});  
+            links.push({title: this.$t('Login'), icon: 'mdi-lock', url: '/login'});  
           }
           return links;
         },
