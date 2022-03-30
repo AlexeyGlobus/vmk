@@ -24,7 +24,7 @@ class AccessRightController extends Controller
      */
     public function index()
     {
-        $accessRigts = AccessRight::all()->toArray();
+        $accessRigts = AccessRight::orderBy('table_name', 'asc')->orderBy('role', 'asc')->get()->toArray();
         return response()->json(
             [
                 'status' => 'success',
