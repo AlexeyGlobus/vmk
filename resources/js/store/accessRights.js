@@ -1,13 +1,26 @@
 export default {
 	state: {
-		user: {}
+		user: {},
+		all: [],
+		roles: {
+			'1': 'Administrator',
+			'2': 'Accountant',
+			'3': 'Director',
+			'4': 'User'
+		},
+		tables: {
+			'access_rights': 'Access Rights',
+			'places': 'Places'
+		}
 	},
 	mutations: {
 		setUser(state, payload) {
 			state.user = payload;
 		},
 		setAccessRights(state, payload) {
-
+			if(typeof payload.access_rights !== 'undefined') {
+				state.all =  payload.access_rights;
+			}
 		}
 	},
 	actions: {
@@ -36,6 +49,12 @@ export default {
 				}
 			}
 			return result;
+		},
+		roleName: state => roleId => {
+			return typeof state.roles[roleId] === 'string' ? state.roles[roleId] : roleId;
+		},
+		tableName: state => tableName => {
+			return typeof state.tables[tableName] === 'string' ? state.tables[tableName] : tableName;
 		}
 	}
 }

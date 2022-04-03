@@ -1,5 +1,10 @@
 <template>
   <div v-if="isReady">
+    <v-text-field
+		  :label="$t('Search')"
+		  v-model="accessRightsSearch"
+		  append-icon="mdi-magnify"
+		></v-text-field>
 	  <v-card 
 		  elevation="2" 
 		  class="pa-2 mt-3" 
@@ -37,7 +42,9 @@
 			    	:key="index"
 		        >
 		          <td class="text-left">
-		          	<p>
+		          	<p 	v-if="tableNameIsChanged(accessRight.table_name)" 
+		          			class="text-uppercase font-weight-bold"
+		          	>
 			          	{{ $t(getTableName(accessRight.table_name)) }}
 			          </p>
 		        	</td>
@@ -67,7 +74,19 @@
 	    					</v-checkbox>
 		          </td> 
 		          <td>
-		          	<a v-if="canEdit" href="#" @click.prevent="save(accessRight)">Save</a>
+        		    <v-btn
+						      class="ma-2"
+						      outlined
+						      fab
+						      small
+					        color="#1976d2"	
+						      v-if="canEdit"
+						      @click.prevent="save(accessRight)"
+						    >
+		          		<v-icon>
+				            save
+				          </v-icon>
+				        </v-btn>
 		          </td>
 		        </tr>
 		      </tbody>
@@ -79,17 +98,18 @@
 </template>
 
 <script>
+  let prevTable = '';
 	export default {
 		data: () => {
 			return {
 				table_name: 'access_rights',
 				isReady: false,
-				prevTableName: ''
+				accessRightsSearch: ''
 			}
 		},
     created() {
       this.$store.dispatch('accessRightsAll')
-    	.then(() => {
+    	.then(() => {;
     		this.isReady = !!this.$store.state.accessRights.all.length;
     	});
     },
@@ -99,13 +119,17 @@
 				return true;
 			},
 			filteredAccessRights() {
-				return this.$store.state.accessRights.all.filter(accessRight => {return true})
+				return this.$store.state.accessRights.all.filter(accessRight => {
+					let tn = this.$t(this.getTableName(accessRight.table_name)).toLowerCase();
+					return !!accessRight.table_name &&
+						tn.indexOf(this.accessRightsSearch.toLowerCase()) !== -1;
+				});
 			}
 		},
 		methods: {
 			tableNameIsChanged(name) {
-				let isChanged = (name != this.prevTableName);
-				this.prevTableName = name;
+				let isChanged = (name != prevTable);
+				//prevTable = name;
 				return isChanged;
 			},
 			getTableName (table) {
@@ -114,8 +138,16 @@
 			getRoleName (role) {
 				return this.$store.getters.roleName(role) + '';
 			},
-			save(a) {
-				console.log(a)
+			save(data) {
+				let rights = 0;
+				let result = Object.assign({}, data);
+				if (typeof data.rights === 'object') {
+					rights = 	data.rights.create * 1 +
+										data.rights.read * 2 +
+										data.rights.update * 4 +
+										data.rights.delete * 8;
+				}
+				result.rights = rights;
 			} 
 		}
 	}
